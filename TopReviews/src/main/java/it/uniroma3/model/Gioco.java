@@ -13,6 +13,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
+//vediamo se non lo vede
+
 @Entity
 public class Gioco {
 		
