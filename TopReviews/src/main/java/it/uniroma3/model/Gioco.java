@@ -23,7 +23,7 @@ public class Gioco {
 		 private Long id;
 		 private Integer year;
 		 private String urlImage;
-		
+		 
 		 
 	    public Long getId() {
 			return id;

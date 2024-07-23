@@ -14,13 +14,13 @@ public class GiocoController {
 	
 	
 	@GetMapping("/gioco/{id}")
-	public String getMovie(@PathVariable("id") Long id, Model model) {
+	public String getGioco(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("gioco", this.giocoService.findById(id));
 		return "gioco.html";
 	}
 	
 	@GetMapping("/gioco")
-	public String showMovies(Model model) {
+	public String showGiochi(Model model) {
 		model.addAttribute("giochi", this.giocoService.findAll());
 		return "giochi.html"; //da chi viene generata la risposta
 	}
