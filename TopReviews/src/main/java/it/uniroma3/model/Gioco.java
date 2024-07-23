@@ -3,7 +3,7 @@ import java.util.List;
 
 import java.util.Objects;
 
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +23,11 @@ public class Gioco {
 		 private Long id;
 		 private Integer year;
 		 private String urlImage;
+		 private String title;
+		 
+		 
+		 @OneToMany(mappedBy = "gioco",cascade = CascadeType.ALL)
+		 private List<Recensione>recensioni;
 		 
 		 
 	    public Long getId() {
@@ -50,7 +55,6 @@ public class Gioco {
 			this.urlImage = urlImage;
 		}
 		
-		private String title;
 		
 	    @Override
 		public int hashCode() {

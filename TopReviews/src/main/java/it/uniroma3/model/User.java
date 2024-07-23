@@ -1,14 +1,19 @@
 package it.uniroma3.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users") // cambiamo nome perchè in postgres user e' una parola riservata
+@Table(name = "Users") // cambiamo nome perchè in postgres user e' una parola riservata
 public class User {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +25,10 @@ public class User {
 	private String surname;
 	
 	private String email;
+	
+	
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Recensione>recensioni;
 
     public Long getId() {
 		return id;

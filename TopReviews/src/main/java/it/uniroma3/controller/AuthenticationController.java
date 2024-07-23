@@ -50,7 +50,18 @@ public class AuthenticationController {
 			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 			if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+//				model.addAttribute("userId", credentials.getUser().getId());
+//				model.addAttribute("user", credentials.getUser());
 				return "admin/indexAdmin.html";
+			}
+			if (credentials.getRole().equals(Credentials.DEFAULT_ROLE)) {
+//				 model.addAttribute("cuocoId", credentials.getUser().getId());
+				model.addAttribute("userId", credentials.getUser().getId());
+				model.addAttribute("user", credentials.getUser());
+				return "user/indexUser.html";
+			}
+			if(credentials.getRole().equals(null)) {
+				return "index.html";
 			}
 		}
         return "index.html";
@@ -64,6 +75,12 @@ public class AuthenticationController {
     	if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
             return "admin/indexAdmin.html";
         }
+    	if (credentials.getRole().equals(Credentials.DEFAULT_ROLE)) {
+//   		 model.addAttribute("cuocoId", credentials.getUser().getId());
+   		model.addAttribute("userId", credentials.getUser().getId());
+   		model.addAttribute("user", credentials.getUser());
+           return "user/indexUser.html";
+   	}
         return "index.html";
     }
 
@@ -73,7 +90,7 @@ public class AuthenticationController {
                  @ModelAttribute("credentials") Credentials credentials,
                  BindingResult credentialsBindingResult,
                  Model model) {
-
+		
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.saveUser(user);
@@ -82,6 +99,6 @@ public class AuthenticationController {
             model.addAttribute("user", user);
             return "registrationSuccessful";
         }
-        return "registerUser";
+        return "formRegisterUser.hmtl";
     }
 }
