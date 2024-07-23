@@ -1,5 +1,6 @@
 package it.uniroma3.authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static it.uniroma3.model.Credentials.ADMIN_ROLE;
+import static it.uniroma3.model.Credentials.DEFAULT_ROLE;
 
 import javax.sql.DataSource;
 
@@ -56,6 +58,8 @@ import javax.sql.DataSource;
                 .requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
                 .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
                 .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
+                .requestMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority(DEFAULT_ROLE)
+                .requestMatchers(HttpMethod.POST, "/user/**").hasAnyAuthority(DEFAULT_ROLE)
         		// tutti gli utenti autenticati possono accere alle pagine rimanenti 
                 .anyRequest().authenticated()
                 // LOGIN: qui definiamo il login
