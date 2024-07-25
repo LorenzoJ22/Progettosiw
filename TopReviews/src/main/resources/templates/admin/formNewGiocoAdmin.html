@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Gioco</title>
+   
+</head>
+
+<body>
+
+    <div>
+        <h1>Aggiungi un Gioco</h1>
+
+        <div >
+            <form th:action="@{/giochiAdmin}" method="POST" th:object="${gioco}">
+                <div class="error-message" th:if="${messaggioErrore}">
+                    <span th:text="${messaggioErrore}">Errore</span>
+                </div>
+                <div>
+                    <label for="title">Titolo:</label>
+                    <input required type="text" id="title" th:field="${gioco.title}">
+                </div>
+                <div>
+                    <label for="urlImage">URL immagine:</label>
+                    <input type="url" id="urlImage" th:field="${gioco.urlImage}">
+                </div>
+                <div>
+                    <label for="year">Anno di uscita:</label>
+                    <input type="number" id="year" th:field="${gioco.year}">
+                </div>
+                <div>
+                    <button type="submit">Conferma</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

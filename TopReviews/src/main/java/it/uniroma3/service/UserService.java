@@ -1,12 +1,15 @@
 package it.uniroma3.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.model.Gioco;
 import it.uniroma3.model.User;
 import it.uniroma3.repository.UserRepository;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,12 @@ public class UserService {
     @Autowired
     protected UserRepository userRepository;
 
+    
+    
+    
+    public User findById(Long id) {
+		return userRepository.findById(id).get();
+	}
     /**
      * This method retrieves a User from the DB based on its ID.
      * @param id the id of the User to retrieve from the DB
@@ -44,6 +53,11 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
+    
+    public Iterable<User>findAll(){
+		return userRepository.findAll();	
+	}
+    
     /**
      * This method retrieves all Users from the DB.
      * @return a List with all the retrieved Users

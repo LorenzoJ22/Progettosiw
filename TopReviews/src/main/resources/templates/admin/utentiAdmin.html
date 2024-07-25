@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utenti</title>
+    <link rel="stylesheet" href="/stile.css?version=2">
+    <style>
+        /* CSS inline per dimostrazione; sposta in stile.css */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/images/ul.jpg') no-repeat center center fixed; 
+    		background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: left;
+            padding-left: 40px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .chef-list {
+            list-style-type: none;
+            padding: 0;
+            width: 35%; /* Imposta la larghezza della lista */
+        }
+
+        .chef-list li {
+            background-color: #fff;
+            margin: 15px 0; /* Aumenta il margine */
+            padding: 15px 50px; /* Aumenta il padding */
+            border-radius: 10px; /* Aumenta il raggio della bordatura */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Migliora l'ombra */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Aggiungi transizione */
+        }
+
+        .chef-list li:hover {
+            transform: translateY(-10px); /* Effetto sollevamento al passaggio del mouse */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombra più grande al passaggio del mouse */
+        }
+
+        .chef-list a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 20px; /* Aumenta la dimensione del font */
+        }
+
+        .chef-list a:hover {
+            text-decoration: underline;
+        }
+
+        .no-chefs {
+            color: #ff0000;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        .link-button {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 25px;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+            color: #333;
+            text-decoration: none;
+            font-size: 24px; /* Aumentato la dimensione del testo */
+            transition: background-color 0.3s;
+        }
+        
+        .delete-button {
+            color: #ff0000;
+            font-size: 16px;
+            margin-left: 10px;
+            padding: 5px 10px;
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-button:hover {
+            background-color: #ffcccc;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="/"><img src="/images/logo.png" width="15%"></a>
+        </div>
+    </header>
+
+    <div class="content">
+        <h1>Utenti:</h1>
+
+        <div th:if="${utenti.isEmpty()}" class="no-chefs">Non ci sono utenti nel sistema</div>
+                
+        <ul class="chef-list" th:if="${!utenti.isEmpty()}">
+            <li th:each="User : ${utenti}">
+                <a th:href="@{'/User/' + ${User.id}}" th:text="${User.name}"></a>
+              
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

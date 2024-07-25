@@ -29,8 +29,23 @@ public class Gioco {
 		 @OneToMany(mappedBy = "gioco",cascade = CascadeType.ALL)
 		 private List<Recensione>recensioni;
 		 
+		 @ManyToOne(cascade = CascadeType.ALL)
+		 private User userg;
 		 
-	    public Long getId() {
+	    public List<Recensione> getRecensioni() {
+			return recensioni;
+		}
+		public void setRecensioni(List<Recensione> recensioni) {
+			this.recensioni = recensioni;
+			
+		}
+		public User getUserg() {
+			return userg;
+		}
+		public void setUserg(User userg) {
+			this.userg = userg;
+		}
+		public Long getId() {
 			return id;
 		}
 		public void setId(Long id) {

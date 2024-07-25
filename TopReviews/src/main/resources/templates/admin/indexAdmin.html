@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>SiwMovie - Homepage</title>
+</head>
+
+<body>
+    <header>
+    
+        <div th:if="${userDetails}">
+            <span th:text="${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        
+         <div>
+            <span th:text="${user.name} + ${user.surname}"></span>
+        </div>
+        
+        <div th:unless="${user}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+
+    <div class="logo">
+        <img src="/images/logo.png">
+    </div>	
+	
+    <div class="content">
+        <h1>Consulta l'archivio</h1>
+         <div>
+            <a href="/gioco" class="link-button">Elenco Giochi</a>
+        </div>
+        
+         <div>
+            <a href="/Utenti" class="link-button">Elenco Utenti</a>
+        </div>
+        
+        <h1>Operazioni per amministratore</h1>
+        <a href="/NewGiocoAdmin"  class="link-button">Aggiungi Gioco nel sistema</a>    
+         <div>
+            <a href="/UtentiAdmin" class="link-button">Elenco Utenti da modificare</a>
+        </div>
+        
+</body>
+
+</html>
