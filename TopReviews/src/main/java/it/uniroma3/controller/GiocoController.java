@@ -19,7 +19,7 @@ public class GiocoController {
 		return "gioco.html";
 	}
 	
-	@GetMapping("/gioco")
+	@GetMapping("/giochi")
 	public String showGiochi(Model model) {
 		model.addAttribute("giochi", this.giocoService.findAll());
 		return "giochi.html"; //da chi viene generata la risposta

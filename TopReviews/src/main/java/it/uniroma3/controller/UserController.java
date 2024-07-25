@@ -10,6 +10,7 @@ import it.uniroma3.service.UserService;
 import it.uniroma3.service.RecensioneService;
 
 @Controller
+
 public class UserController {
 	@Autowired UserService userService;
 	@Autowired RecensioneService ricettaService;
@@ -26,3 +27,6 @@ public class UserController {
 		 return "utenti.html";
 	 }
 }
+
+
+

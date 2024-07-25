@@ -4,6 +4,13 @@ import org.springframework.data.repository.CrudRepository;
 
 import it.uniroma3.model.Recensione;
 
-public interface RecensioneRepository extends CrudRepository<Recensione,Long>{
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface RecensioneRepository extends CrudRepository<Recensione, Long> {
+	public List<Recensione>findRecensioneByGiocoId(Long id);
+	public Recensione findRecensioneById(Long id);
+
 
 }

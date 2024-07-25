@@ -29,7 +29,22 @@ public class Gioco {
 		 @OneToMany(mappedBy = "gioco",cascade = CascadeType.ALL)
 		 private List<Recensione>recensioni;
 		 
-		 @ManyToOne(cascade = CascadeType.ALL)
+
+		// @ManyToOne(cascade = CascadeType.ALL)
+
+//		 public List<Recensione> getRecensioni() {
+//			return recensioni;
+//		}
+//		public void setRecensioni(List<Recensione> recensioni) {
+//			this.recensioni = recensioni;
+//		}
+//		public User getUserg() {
+//			return userg;
+//		}
+//		public void setUserg(User userg) {
+//			this.userg = userg;
+//		}
+		@ManyToOne(cascade = CascadeType.ALL)
 		 private User userg;
 		 
 	    public List<Recensione> getRecensioni() {
@@ -86,9 +101,5 @@ public class Gioco {
 			Gioco other = (Gioco) obj;
 			return  Objects.equals(title, other.title) && Objects.equals(year, other.year);
 		}
-	    // seguono metodi setter e getter
-	    // seguono metodi equals e hashCode:
-	    //         due oggetti Movie sono uguali se hanno 
-	    //         stesso titolo e stesso anno
 
 	}

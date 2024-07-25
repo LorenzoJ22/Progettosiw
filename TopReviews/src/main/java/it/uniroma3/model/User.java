@@ -41,6 +41,8 @@ public class User {
 		this.recensioni = recensioni;
 	}
 
+
+
 	public List<Gioco> getGiochi() {
 		return giochi;
 	}
@@ -48,7 +50,6 @@ public class User {
 	public void setGiochi(List<Gioco> giochi) {
 		this.giochi = giochi;
 	}
-
 	public Long getId() {
 		return id;
 	}

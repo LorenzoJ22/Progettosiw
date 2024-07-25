@@ -15,6 +15,9 @@ public class Recensione {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	 private Long id;
 	 private String data;
+	 private String titolo;
+	 private String testo;
+	 private Integer numeroStelle;
 	 
 	 @ManyToOne
 	 private User user;		//autore della recensione
@@ -42,12 +45,6 @@ public class Recensione {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
 	
 	public String getData() {
 		return data;
@@ -56,11 +53,10 @@ public class Recensione {
 		this.data = data;
 	}
 	
-	private String title;
 	
     @Override
 	public int hashCode() {
-		return Objects.hash(id, title, data);
+		return Objects.hash(titolo, data, gioco, id,user,testo);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -71,7 +67,29 @@ public class Recensione {
 		if (getClass() != obj.getClass())
 			return false;
 		Recensione other = (Recensione) obj;
-		return  Objects.equals(data, other.data);
+		return Objects.equals(titolo, other.titolo) && Objects.equals(data, other.data)
+				&& Objects.equals(gioco, other.gioco) && Objects.equals(id, other.id)
+				&& Objects.equals(user, other.user)
+				&& Objects.equals(testo, other.testo);
+	}
+	public String getTitolo() {
+		return titolo;
+	}
+	public void setTitolo(String titolo) {
+		this.titolo = titolo;
+	}
+	
+	public String getTesto() {
+		return testo;
+	}
+	public void setTesto(String testo) {
+		this.testo = testo;
+	}
+	public Integer getNumeroStelle() {
+		return numeroStelle;
+	}
+	public void setNumeroStelle(Integer numeroStelle) {
+		this.numeroStelle = numeroStelle;
 	}
 
 }

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		Recensioni
+		
+	</head>
+
+	<body >
+		
+		<div th:if="${recensioni.isEmpty()}">Non ci sono recensioni nel sistema</div>
+		
+		<li th:each="recensione : ${recensioni}">
+		 <a th:href="@{'/recensione/' + ${recensione.id}}" th:text="${recensione.titolo}">recensione</a>
+		 </li>
+	</body>
+
+
+</html>
