@@ -33,6 +33,9 @@ public class User {
 	@OneToMany(mappedBy = "userg", cascade = CascadeType.ALL)
 	private List<Gioco> giochi;
 	
+	
+	
+	
     public List<Recensione> getRecensioni() {
 		return recensioni;
 	}

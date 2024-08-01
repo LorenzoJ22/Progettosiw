@@ -7,14 +7,16 @@
     <title>New Gioco</title>
    
 </head>
-
+<div class="logo">
+        <a href="/success"><img src="/images/trr.png"width="30%"/></a>
+    </div>	
 <body>
 
     <div>
         <h1>Aggiungi un Gioco</h1>
 
         <div >
-            <form th:action="@{/giochiAdmin}" method="POST" th:object="${gioco}">
+            <form th:action="@{/NewgiochiAdmin}" method="POST" th:object="${gioco}">
                 <div class="error-message" th:if="${messaggioErrore}">
                     <span th:text="${messaggioErrore}">Errore</span>
                 </div>

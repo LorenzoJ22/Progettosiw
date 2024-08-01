@@ -3,9 +3,15 @@
 	<head>
 		
 	</head>
+	 <div th:if="${userDetails}">
+            <span th:text="${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+	 <div class="logo">
+            <a href="/"><img src="/images/trr.png" width="30%"></a>
+        </div>
     <body>
-		<h2> Bravo ti sei registrato!</h2>
-	
+		<h2> Menu </h2>
 		
 		<a th:href="@{'/aggiungiRecensione'}">aggiungi</a>
 		

@@ -56,5 +56,10 @@ public class CredentialsService {
 		credentialsRepository.deleteById(id);
 	}
 	
+	public Long TrovaCredentialsId(Long id) {
+		return this.credentialsRepository.TrovaCredentialsId(id);
+	}
+	
+	
 	
 	}

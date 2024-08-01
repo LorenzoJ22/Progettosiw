@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ricette</title>
+    <link rel="stylesheet" href="/css/stile.css">
+    <style>
+        /* CSS inline per dimostrazione; sposta in stile.css */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/images/ul.jpg') no-repeat center center fixed; 
+    		background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header div {
+            margin: 0 20px;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #555;
+            transition: background-color 0.3s;
+            font-size: 18px;
+        }
+
+        header a:hover {
+            background-color: #777;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin: 20px 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left; /* Allinea a sinistra */
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        .recipe-item {
+            display: flex; /* Usa flexbox per allineare gli elementi */
+            align-items: center; /* Allinea verticalmente gli elementi */
+            margin-bottom: 10px; /* Aggiungi spazio tra le ricette */
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+            transition: background-color 0.3s;
+        }
+
+
+        .recipe-name:hover {
+            background-color: #ccc;
+        }
+        
+        .link-button {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 25px;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+            color: #333;
+            text-decoration: none;
+            font-size: 24px; /* Aumentato la dimensione del testo */
+            transition: background-color 0.3s;
+        }
+
+       
+        .chef-name {
+    color: #666; /* Colore testo per il nome del cuoco */
+    font-size: 18px; /* Dimensione del testo per il nome del cuoco */
+    margin-left: 10px; /* Aggiungi margine a sinistra per separare dal nome della ricetta */
+}
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <div th:if="${userDetails}">
+            <span th:text="${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div th:unless="${user}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+
+    <div>
+        <a href="/success"><img src="/images/trr.png" width="20%" /></a>
+    </div>
+    <h1>Giochi che soddisfano i requisiti</h1>
+
+    <div th:if="${giochi.isEmpty()}">Non ci sono giochi che soddisfano i requisiti</div>
+
+    <ul th:if="${!giochi.isEmpty()}">
+        <li th:each="Gioco : ${giochi}">
+            <div class="recipe-item">
+                <a th:href="@{'/gioco/' + ${Gioco.id}}" class="recipe-name" th:text="${Gioco.title}"></a>
+                <span>Nome User: </span>
+                <a th:href="@{'/Utente/' + ${Gioco.userg.id}}"  th:text="${Gioco.userg.name}"></a>
+                
+            </div>
+        </li>
+    </ul>
+    <div>
+            <a href="/formSearchGioco" class="link-button">Torna al form per cercare giochi</a>
+        </div>
+</body>
+
+</html>

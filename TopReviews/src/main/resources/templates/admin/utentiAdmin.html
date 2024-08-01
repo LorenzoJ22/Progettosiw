@@ -106,7 +106,7 @@
 <body>
     <header>
         <div class="logo">
-            <a href="/"><img src="/images/logo.png" width="15%"></a>
+            <a href="/success"><img src="/images/trr.png" width="15%"></a>
         </div>
     </header>
 
@@ -114,11 +114,13 @@
         <h1>Utenti:</h1>
 
         <div th:if="${utenti.isEmpty()}" class="no-chefs">Non ci sono utenti nel sistema</div>
+        
+                <a href="/formAddUtente"  class="link-button">Aggiungi gli utenti nel sistema</a>
                 
         <ul class="chef-list" th:if="${!utenti.isEmpty()}">
             <li th:each="User : ${utenti}">
                 <a th:href="@{'/User/' + ${User.id}}" th:text="${User.name}"></a>
-              
+              	 <a th:href="@{'/CancellaUtente/' + ${User.id}}"class="delete-button" >Cancella Utente</a> 
             </li>
         </ul>
     </div>

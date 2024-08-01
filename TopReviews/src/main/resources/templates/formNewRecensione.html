@@ -3,7 +3,9 @@
 	<head>
 		
 	</head>
-	
+	<div class="logo">
+            <a href="/"><img src="/images/trr.png" width="30%"></a>
+        </div>
 	<body>
 		 <form th:action="@{/addRecensione}" method="POST" th:object="${recensione}">
 			<div class="error-message" th:if="${messaggioErrore}">
