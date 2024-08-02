@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.model.Credentials;
 import it.uniroma3.model.Gioco;
 import it.uniroma3.model.Recensione;
 import it.uniroma3.model.User;
 import it.uniroma3.service.CredentialsService;
-
+import it.uniroma3.service.GiocoService;
 import it.uniroma3.service.RecensioneService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class RecensioneController {
@@ -27,8 +29,7 @@ public class RecensioneController {
 	@Autowired CredentialsService credentialsService;
 	
 	@Autowired RecensioneService recensioneService;
-	
-	
+	//@Autowired GiocoService giocoService;
 	
 @GetMapping("/recensioni")
 	public String GetAllRecensioni(Model model) {
@@ -37,41 +38,74 @@ public class RecensioneController {
 	}
 
 	
-	@GetMapping("/recensione{id}")
+	@GetMapping("/recensione/{id}")
 	public String GetRecensione(@PathVariable("id") Long id, Model model) {
+	
 		model.addAttribute("recensione",this.recensioneService.findRecensioneById(id));
+		
 		return "recensione.html";
 		
 	}
 	@GetMapping("/gioco/{id}/recensioni")
 	public String getRecensioniPerGioco(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("recensioni", this.recensioneService.FindRecensioniById(id));
+		model.addAttribute("recensioni", this.recensioneService.FindRecensioniByGiocoId(id));
 		return "recensioni.html";
 	}
 	
 	@GetMapping("/aggiungiRecensione")
-	public String AddRicetta(Model model,@ModelAttribute("user") User user) {
-		model.addAttribute("recensione",new Recensione());
+	public String AddRecensione(Model model,@ModelAttribute("user") User user) {
+		Recensione r=new Recensione();
+		model.addAttribute("recensione",r);
 		model.addAttribute(user);
-		return "formNewRecensione.html";
+		 return "user/formNewRecensione.html";
+			
 	}
+
+	@GetMapping("/recensione/user/{id}")
+	public String DeletegiocoByUsergId(Model model,@PathVariable("id") Long id){
+		
+		model.addAttribute("recensioni",recensioneService.FindRecensioniByUserId(id));
+		
+		return "user/DeleteRecensioni.html";
+	}
+	
 	
 	@PostMapping("/addRecensione")
-	public String newRicetta(
-			@ModelAttribute("recensione")Recensione recensione, Model model) {
-		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		public String newRecensione(
+				@ModelAttribute("recensione")Recensione recensione, Model model,HttpSession session,
+			     @RequestParam("rating") Integer rating, @RequestParam("data")String data) {
+	    	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+			User user = credentials.getUser();
+			Gioco gioco= (Gioco)session.getAttribute("giocoMem");
+			recensione.setGioco(gioco);
+			recensione.setNumeroStelle(rating);
+			recensione.setData(data);
+			
+			//recensione.getGioco().setId(gioco.getId());
+			recensione.setUser(user);
+		 //   recensione.getUser().setId(user.getId());
+		   
+		    this.recensioneService.save(recensione);
+		    user.getRecensioni().add(recensione);
+			
+	
+			model.addAttribute("recensioni", this.recensioneService.FindRecensioniByUserId(user.getId()));
+			return "recensioni.html";
+		}
+	
+	
+
+	
+	@GetMapping("/User/CancellaRecensione/{id}")
+    public String cancellaRecensione(Model model,@PathVariable("id") Long id) {  
+        recensioneService.deleteById(id);
+        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		User user = credentials.getUser();
-		System.out.println("l'user e': " +user + "e id:"+ user.getId());
-		 recensione.setUser(user);
-		 
-		    recensione.getUser().setId(user.getId());
-			user.getRecensioni().add(recensione);
-			this.recensioneService.save(recensione);
-		model.addAttribute("recensioni", this.recensioneService.FindRecensioniById(user.getId()));
-		return "recensioni.html";
-	}
-	
+	   	model.addAttribute("recensioni", recensioneService.FindRecensioniByUserId(user.getId()));
+		return "user/DeleteRecensioni.html";
+    }
 	
 
 }

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		Recensioni
-		
-	</head>
 
 	<body >
+		<div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
 		
 		<div th:if="${recensioni.isEmpty()}">Non ci sono recensioni nel sistema</div>
 		
 		<li th:each="recensione : ${recensioni}">
 		 <a th:href="@{'/recensione/' + ${recensione.id}}" th:text="${recensione.titolo}">recensione</a>
+		 
+		
+				 </a>
+				 
 		 </li>
 	</body>
 

@@ -44,8 +44,6 @@ public class User {
 		this.recensioni = recensioni;
 	}
 
-
-
 	public List<Gioco> getGiochi() {
 		return giochi;
 	}

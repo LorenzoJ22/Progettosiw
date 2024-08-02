@@ -18,6 +18,9 @@
     <div th:unless="${gioco}">Non esiste</div>
 
     <a th:href="@{'/gioco/' + ${gioco.id} + '/recensioni'}">recensioni</a>
-
-  </body>
+	
+	<a th:if="${#authentication.name != 'anonymousUser'}">
+	<a th:href="@{'/aggiungiRecensione'}">  Aggiungi Recensione</a>
+ 
+ </body>
 </html>

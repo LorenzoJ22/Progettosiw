@@ -119,7 +119,7 @@
                 
         <ul class="chef-list" th:if="${!utenti.isEmpty()}">
             <li th:each="User : ${utenti}">
-                <a th:href="@{'/User/' + ${User.id}}" th:text="${User.name}"></a>
+                <a th:href="@{'/Utente/' + ${User.id}}" th:text="${User.name}"></a>
               	 <a th:href="@{'/CancellaUtente/' + ${User.id}}"class="delete-button" >Cancella Utente</a> 
             </li>
         </ul>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+	</head>
+	<style>
+			        .star-rating {
+			            font-size: 0; /* Remove space between inline-block elements */
+			            display: inline-block;
+			        }
+			        .star-rating__star {
+			            font-size: 30px; /* Adjust size as needed */
+			            color: #ccc; /* Default star color */
+			            opacity: 0;
+			            transform: scale(0);
+			            animation: fillStar 0.5s forwards;
+			        }
+			        .star-rating__star--filled {
+			            color: gold; /* Filled star color */
+			        }
+			        @keyframes fillStar {
+			            to {
+			                opacity: 1;
+			                transform: scale(1);
+			            }
+			        }
+    </style>
+	
+	<script>
+	        function animateStars() {
+	            const stars = document.querySelectorAll('.star-rating__star');
+	            stars.forEach((star, index) => {
+	                star.style.animationDelay = `${index * 0.2}s`; /* Delay for each star */
+	                star.classList.add('star-rating__star--filled');
+	            });
+	        }
+
+	        document.addEventListener('DOMContentLoaded', (event) => {
+	            animateStars();
+	        });
+	    </script>
+	
+	<body>
+		 <form th:action="@{'/addGioco'}" method="POST" th:object="${gioco}">
+			<div class="error-message" th:if="${messaggioErrore}">
+			      <span th:text="${messaggioErrore}">Errore</span>
+			              </div>	
+			       
+					      <div>
+			                <label for="title">Titolo:</label>
+			                <input required type="text" id="name" th:field="${gioco.title}">
+						 </div>
+						 <div>
+							<div>
+							    <label for="urlImage">URL immagine:</label>
+							     <input type="url" id="urlImage" th:field="${gioco.urlImage}">
+							     </div>
+							<label for="year">Year:</label>
+			              <input for="year" th:field="${gioco.year}">
+					   </input>
+						  </div>
+						  
+			              <div>
+			                    <button type="submit">Conferma</button>
+			         </div>
+							
+		
+							
+			</form>
+			
+			
+	</body>
+</html>
+
+

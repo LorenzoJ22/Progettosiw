@@ -3,6 +3,8 @@
 	<head>
 		
 	</head>
+	<body>
+		
 	 <div th:if="${userDetails}">
             <span th:text="${userDetails.username}"></span>
             <a href="/logout">Logout</a>
@@ -11,10 +13,24 @@
             <a href="/"><img src="/images/trr.png" width="30%"></a>
         </div>
     <body>
+
 		<h2> Menu </h2>
 		
 		<a th:href="@{'/aggiungiRecensione'}">aggiungi</a>
 		
+
+		<h2> Bravo ti sei loggato!</h2>
+	
+		<a th:href="@{'/giochi'}">Seleziona Gioco Da Recensire</a>
+		<div>
+		<a th:href="@{'/aggiungiGioco'}">Aggiungi Gioco</a>
+		</div>
+		<div>
+			
+	 <a th:href="@{'/recensione/user/' + ${userId}}">Seleziona Recensione Da Cancellare</a>
+	   
+	    </div>
+
     </body>
 
 

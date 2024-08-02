@@ -2,6 +2,8 @@ package it.uniroma3.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import it.uniroma3.model.Gioco;
 import it.uniroma3.model.Recensione;
 import java.util.*;
 import it.uniroma3.repository.RecensioneRepository;
@@ -12,7 +14,14 @@ public class RecensioneService {
 
 	@Autowired RecensioneRepository recensionerepository;
 
-	public List<Recensione>FindRecensioniById(Long id){
+
+
+	public List<Recensione>FindRecensioniByUserId(Long id){
+		return recensionerepository.findRecensioneByUserId(id);
+	}
+	
+	public List<Recensione>FindRecensioniByGiocoId(Long id){
+
 		return recensionerepository.findRecensioneByGiocoId(id);
 	}
 	public Recensione findRecensioneById(Long id) {
@@ -25,9 +34,17 @@ public class RecensioneService {
 	public Iterable<Recensione>GetAllRecensioni(){
 		return recensionerepository.findAll();
 	}
+
 	
 	public Iterable<Recensione>TrovaRecensioniId(Long id){
 		return recensionerepository.TrovaRecensioniId(id);
 	}
 	
+
+ public void deleteById(Long id) {
+	recensionerepository.deleteById(id);
+
+ }
+		
+
 }

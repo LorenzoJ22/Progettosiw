@@ -7,17 +7,14 @@
 </head>
 
 <body>
+	<div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
     <header>
     
         <div th:if="${userDetails}">
             <span th:text="${userDetails.username}"></span>
             <a href="/logout">Logout</a>
         </div>
-        
-         <div>
-            <span th:text="${user.name} + ${user.surname}"></span>
-        </div>
-        
+		
         <div th:unless="${user}">
             <a href="/login">Login</a>
         </div>
@@ -26,7 +23,6 @@
     <div class="logo">
         <a ><img src="/images/trr.png"width="30%"/></a>
     </div>	
-	
     <div class="content">
         <h1>Consulta l'archivio</h1>
          <div>
@@ -41,13 +37,16 @@
             <a href="/formSearchGioco" class="link-button">Cerca giochi attraverso il titolo nel sistema</a>
         </div>
         <h1>Operazioni per amministratore</h1>
-        <a href="/NewGiocoAdmin"  class="link-button">Aggiungi Gioco nel sistema</a>    
+        <a href="/aggiungiGioco"  class="link-button">Aggiungi Gioco nel sistema</a>    
          <div>
             <a href="/UtentiAdmin" class="link-button">Modifica Utenti nel sistema</a>
         </div>
         <div>
             <a href="/giochiAdmin" class="link-button">Modifica Giochi nel sistema</a>
         </div>
+	
+		
+				
         
 </body>
 

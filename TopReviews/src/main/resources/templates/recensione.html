@@ -3,11 +3,22 @@
 	<head>
 		
 	</head>
-	<body>
-	 <div th:if="${recensione.isEmpty()}" >la recensione non è più presente nel sistema</div>
-     <h1 th:text="recensione.titolo"></h1>
-	 <h4 th:text="recensione.user"></h4>
+		<div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
 		
+		<div th:unless="${recensione}">Non esiste</div>
+		
+	  <h1 th:text="${recensione.titolo}">Titolo recensione </h1>
+	<div>
+		<a th:text="${recensione.user.name}"></a>
+	</div>
+	  
+	<div>
+	   <a th:text="${recensione.data}"></a>
+	</div>
+	<div>
+	   <a th:text="${recensione.testo}"></a>
+    </div>
+	 			 
 	 
 	 </div>
 		

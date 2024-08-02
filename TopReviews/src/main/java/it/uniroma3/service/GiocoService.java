@@ -32,5 +32,8 @@ public class GiocoService {
 		return giocoRepository.findByYear(year);
 		
 	}
+	public Iterable<Gioco>findByUserId(Long id){
+		return giocoRepository.FindGiocoByUserId(id);
+	}
 	
 }
