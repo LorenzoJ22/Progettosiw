@@ -4,50 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <title>SiwMovie - Homepage</title>
+    <link rel="stylesheet" href="/css/indexAdmin.css">
 </head>
 
 <body>
-	<div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
-    <header>
     
+    <header>
         <div th:if="${userDetails}">
             <span th:text="${userDetails.username}"></span>
             <a href="/logout">Logout</a>
         </div>
-		
+
         <div th:unless="${user}">
             <a href="/login">Login</a>
         </div>
     </header>
 
     <div class="logo">
-        <a ><img src="/images/trr.png"width="30%"/></a>
-    </div>	
+        <a><img src="/images/trr.png" width="30%" /></a>
+    </div>
     <div class="content">
         <h1>Consulta l'archivio</h1>
-         <div>
+        <div>
             <a href="/giochi" class="link-button">Elenco Giochi</a>
         </div>
-        
-         <div>
+
+        <div>
             <a href="/Utenti" class="link-button">Elenco Utenti</a>
         </div>
-          <h1>Cerca giochi </h1>
+        <h1>Cerca giochi</h1>
         <div>
             <a href="/formSearchGioco" class="link-button">Cerca giochi attraverso il titolo nel sistema</a>
         </div>
         <h1>Operazioni per amministratore</h1>
-        <a href="/aggiungiGioco"  class="link-button">Aggiungi Gioco nel sistema</a>    
-         <div>
+        <a href="/NewGiocoAdmin" class="link-button">Aggiungi Gioco nel sistema</a>
+        <div>
             <a href="/UtentiAdmin" class="link-button">Modifica Utenti nel sistema</a>
         </div>
         <div>
             <a href="/giochiAdmin" class="link-button">Modifica Giochi nel sistema</a>
         </div>
-	
-		
-				
-        
+    </div>
 </body>
 
 </html>
