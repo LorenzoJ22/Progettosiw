@@ -1,5 +1,7 @@
 package it.uniroma3.controller;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -185,7 +187,7 @@ public class AdminController {
 	    
 	    @PostMapping("/recensioniNuoveAdmin")
 		public String newRecensioniAdmin(@ModelAttribute("recensione")Recensione recensione,
-				@RequestParam("id")Long id, @RequestParam("rating") Integer rating, @RequestParam("data")String data,
+				@RequestParam("id")Long id, @RequestParam("rating") Integer rating, @RequestParam("data")Date data,
 				/*@ModelAttribute("gioco")Gioco gioco,*/ Model model) {
 	    	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());	    	

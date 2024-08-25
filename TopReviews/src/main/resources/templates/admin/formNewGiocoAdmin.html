@@ -5,7 +5,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Gioco</title>
-   
+    
+   <style>
+        /* Stile generale per la pagina */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Stile per il contenitore del logo */
+.logo {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Stile per il titolo principale */
+h1 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Stile del contenitore principale */
+div {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Stile per le etichette dei campi del modulo */
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Stile per i campi di input del modulo */
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* Stile per il messaggio di errore */
+.error-message {
+    background-color: #ffdddd;
+    color: #d8000c;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #d8000c;
+    border-radius: 5px;
+}
+
+/* Stile per il pulsante di submit */
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Stile per il logo */
+.logo img {
+    max-width: 100%;
+    height: auto;
+}
+        
+    </style>
 </head>
 <div class="logo">
         <a href="/success"><img src="/images/trr.png"width="30%"/></a>
@@ -16,7 +109,7 @@
         <h1>Aggiungi un Gioco</h1>
 
         <div >
-            <form th:action="@{/NewgiochiAdmin}" method="POST" th:object="${gioco}">
+            <form th:action="@{/NewgiochiAdmin}" method="POST" th:object="${gioco}" enctype="multipart/form-data">
                 <div class="error-message" th:if="${messaggioErrore}">
                     <span th:text="${messaggioErrore}">Errore</span>
                 </div>
@@ -25,9 +118,9 @@
                     <input required type="text" id="title" th:field="${gioco.title}">
                 </div>
                 <div>
-                    <label for="urlImage">URL immagine:</label>
-                    <input type="url" id="urlImage" th:field="${gioco.urlImage}">
-                </div>
+					<label>Carica Immagine:</label>
+					<input type="file" name="image" required>
+					</div>
                 <div>
                     <label for="year">Anno di uscita:</label>
                     <input type="number" id="year" th:field="${gioco.year}">
