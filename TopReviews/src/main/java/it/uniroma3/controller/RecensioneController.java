@@ -52,7 +52,7 @@ public class RecensioneController {
 		return "recensione.html";
 		
 	}
-	//oorknrnvor3no
+	//oorknrnvor3nopp
 	@GetMapping("/gioco/{id}/recensioni")
 	public String getRecensioniPerGioco(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("recensioni", this.recensioneService.FindRecensioniByGiocoId(id));
