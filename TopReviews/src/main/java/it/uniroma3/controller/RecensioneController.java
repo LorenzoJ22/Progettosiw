@@ -1,11 +1,14 @@
 package it.uniroma3.controller;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,12 +21,12 @@ import it.uniroma3.model.Gioco;
 import it.uniroma3.model.Recensione;
 import it.uniroma3.model.User;
 import it.uniroma3.service.CredentialsService;
-import it.uniroma3.service.GiocoService;
 import it.uniroma3.service.RecensioneService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@Transactional
 public class RecensioneController {
 	
 	@Autowired CredentialsService credentialsService;
@@ -31,14 +34,17 @@ public class RecensioneController {
 	@Autowired RecensioneService recensioneService;
 	//@Autowired GiocoService giocoService;
 	
-@GetMapping("/recensioni")
+    @GetMapping("/recensioni")
+    
 	public String GetAllRecensioni(Model model) {
 		model.addAttribute("recensioni",this.recensioneService.GetAllRecensioni());
 		return "recensioni.html";
+		
 	}
 
 	
 	@GetMapping("/recensione/{id}")
+	
 	public String GetRecensione(@PathVariable("id") Long id, Model model) {
 	
 		model.addAttribute("recensione",this.recensioneService.findRecensioneById(id));
@@ -46,6 +52,7 @@ public class RecensioneController {
 		return "recensione.html";
 		
 	}
+	//oorknrnvor3nopp
 	@GetMapping("/gioco/{id}/recensioni")
 	public String getRecensioniPerGioco(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("recensioni", this.recensioneService.FindRecensioniByGiocoId(id));
@@ -53,12 +60,17 @@ public class RecensioneController {
 	}
 	
 
+	
+
+
 	@GetMapping("/recensione/user/{id}")
-	public String DeletegiocoByUsergId(Model model,@PathVariable("id") Long id){
+	
+	public String FindRecensioniByUsergId(Model model,@PathVariable("id") Long id){
 		
 		model.addAttribute("recensioni",recensioneService.FindRecensioniByUserId(id));
 		
 		return "user/DeleteRecensioni.html";
+		
 	}
 	
 	@GetMapping("/aggiungiRecensione")
@@ -71,9 +83,10 @@ public class RecensioneController {
 	}
 	
 	@PostMapping("/addRecensione")
+	
 		public String newRecensione(
 				@ModelAttribute("recensione")Recensione recensione, Model model,HttpSession session,
-			     @RequestParam("rating") Integer rating, @RequestParam("data")String data) {
+			     @RequestParam("rating") Integer rating, @RequestParam("data")Date data) {
 	    	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 			User user = credentials.getUser();
@@ -84,21 +97,14 @@ public class RecensioneController {
 			recensione.setData(data);
 			recensione.setUser(user);
 			
-			//recensione.getGioco().setId(gioco.getId());
-		 //   recensione.getUser().setId(user.getId());
-		   
 		    this.recensioneService.save(recensione);
 		    user.getRecensioni().add(recensione);
-			
-		    
 			model.addAttribute("recensioni", this.recensioneService.FindRecensioniByUserId(user.getId()));
-			return "recensioni.html";
+			return "redirect:/recensioni";
 		}
 	
-	
-
-	
 	@GetMapping("/User/CancellaRecensione/{id}")
+	
     public String cancellaRecensione(Model model,@PathVariable("id") Long id) {  
         recensioneService.deleteById(id);
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
