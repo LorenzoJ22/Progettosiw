@@ -52,14 +52,6 @@ public class RecensioneController {
 		return "recensioni.html";
 	}
 	
-	@GetMapping("/aggiungiRecensione")
-	public String AddRecensione(Model model,@ModelAttribute("user") User user) {
-		Recensione r=new Recensione();
-		model.addAttribute("recensione",r);
-		model.addAttribute(user);
-		 return "user/formNewRecensione.html";
-			
-	}
 
 	@GetMapping("/recensione/user/{id}")
 	public String DeletegiocoByUsergId(Model model,@PathVariable("id") Long id){
@@ -69,6 +61,14 @@ public class RecensioneController {
 		return "user/DeleteRecensioni.html";
 	}
 	
+	@GetMapping("/aggiungiRecensione")
+	public String AddRecensione(Model model,@ModelAttribute("user") User user) {
+		Recensione r=new Recensione();
+		model.addAttribute("recensione",r);
+		model.addAttribute(user);
+		return "user/formNewRecensione.html";
+		
+	}
 	
 	@PostMapping("/addRecensione")
 		public String newRecensione(
@@ -78,18 +78,19 @@ public class RecensioneController {
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 			User user = credentials.getUser();
 			Gioco gioco= (Gioco)session.getAttribute("giocoMem");
+			
 			recensione.setGioco(gioco);
 			recensione.setNumeroStelle(rating);
 			recensione.setData(data);
+			recensione.setUser(user);
 			
 			//recensione.getGioco().setId(gioco.getId());
-			recensione.setUser(user);
 		 //   recensione.getUser().setId(user.getId());
 		   
 		    this.recensioneService.save(recensione);
 		    user.getRecensioni().add(recensione);
 			
-	
+		    
 			model.addAttribute("recensioni", this.recensioneService.FindRecensioniByUserId(user.getId()));
 			return "recensioni.html";
 		}

@@ -27,7 +27,7 @@ public class User {
 	private String email;
 	
 	
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
 	private List<Recensione>recensioni;
 	
 	@OneToMany(mappedBy = "userg", cascade = CascadeType.ALL)

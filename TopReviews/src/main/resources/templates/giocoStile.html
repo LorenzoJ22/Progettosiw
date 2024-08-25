@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gioco</title>
+    <link rel="stylesheet" href="/stile.css?version=2" />
+  </head>
+  <body>
+     <div class="logo">
+            <a href="/success"><img src="/images/trr.png" width="30%"></a>
+        </div>
+   
+    <div th:if="${gioco}">
+    <h1 th:text="${gioco.title}">Titolo gioco</h1>
+        <div>Anno: <span th:text="'(' + ${gioco.year} + ')'">2000</span></div>
+        <span><img width="30%" th:src=${gioco.urlImage} /></span>
+    </div>
+
+    <div th:unless="${gioco}">Non esiste</div>
+
+	<div th:if="${recensioni.isEmpty()}">Non ci sono recensioni nel sistema</div>
+		
+		<li th:each="recensione : ${recensioni}">
+		 <a th:href="@{'/recensione/' + ${recensione.id}}" th:text="${recensione.titolo}">recensione</a>
+
+				 </a>	 
+		 </li>
+
+
+    <a th:href="@{'/gioco/' + ${gioco.id} + '/recensioni'}">recensioni</a>
+	
+	<a th:if="${#authentication.name != 'anonymousUser'}">
+	<a th:href="@{'/aggiungiRecensione'}">  Aggiungi Recensione</a>
+ 
+ </body>
+</html>

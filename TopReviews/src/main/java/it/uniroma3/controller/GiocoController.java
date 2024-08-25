@@ -22,6 +22,7 @@ import it.uniroma3.model.User;
 import it.uniroma3.service.CredentialsService;
 
 import it.uniroma3.service.GiocoService;
+import it.uniroma3.service.RecensioneService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -32,7 +33,7 @@ public class GiocoController {
 	
 
 	@Autowired CredentialsService credentialsService;
-
+	@Autowired RecensioneService recensioneService;
 	
 	@GetMapping("/gioco/{id}")
 	public String getGioco(@PathVariable("id") Long id, Model model,HttpSession session) {
@@ -42,11 +43,23 @@ public class GiocoController {
 		return "gioco.html";
 	}
 	
+	/*vedere le recensioni del gioco meglio*/
+	@GetMapping("/giocoStile/{id}")
+	public String getGiocoStile(@PathVariable("id") Long id, Model model,HttpSession session) {
+		Gioco gioco = this.giocoService.findById(id);
+		model.addAttribute("gioco", gioco);
+		model.addAttribute("recensioni", recensioneService.FindRecensioniByGiocoId(id));
+		return "giocoStile.html";
+	}
+	
+	
+	
 	@GetMapping("/giochi")
 	public String showGiochi(Model model) {
 		model.addAttribute("giochi", this.giocoService.findAll());
 		return "giochi.html"; //da chi viene generata la risposta
 	}
+	
 	
 
 	 /*SearchGioco form da IndexAdmin*/

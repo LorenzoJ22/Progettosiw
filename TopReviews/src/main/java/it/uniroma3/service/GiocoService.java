@@ -35,5 +35,9 @@ public class GiocoService {
 	public Iterable<Gioco>findByUserId(Long id){
 		return giocoRepository.FindGiocoByUserId(id);
 	}
+
+	public void deleteById(Long id) {
+		giocoRepository.deleteById(id);
+	}
 	
 }

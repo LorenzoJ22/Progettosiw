@@ -45,9 +45,12 @@ public class Gioco {
 //		public void setUserg(User userg) {
 //			this.userg = userg;
 //		}
-		@ManyToOne(cascade = CascadeType.ALL)
+		@ManyToOne(cascade = CascadeType.PERSIST)
 		 private User userg;
 		 
+		
+		
+		
 	    public List<Recensione> getRecensioni() {
 			return recensioni;
 		}

@@ -25,6 +25,7 @@ import it.uniroma3.model.Credentials;
 import it.uniroma3.model.Gioco;
 import it.uniroma3.model.Recensione;
 import it.uniroma3.model.User;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AdminController {
@@ -66,10 +67,9 @@ public class AdminController {
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!credentialsBindingResult.hasErrors() && !userBindingResult.hasErrors()) {
         	userService.saveUser(user);
+        	credentials.setUser(user);
         	credentialsService.saveCredentialsAdmin(credentials);
-            
             model.addAttribute("user", user);           
-            userService.saveUser(user);
             System.out.println("L'utente registrato e': "+credentials.getRole());
             
             return "formLogin.html";
@@ -157,40 +157,95 @@ public class AdminController {
     		return "admin/giochiAdmin.html";
     	}
 	
+    /*Cancella gioco dall'elenco dell'admin*/
+	 @GetMapping("admin/CancellaGiochiAdmin/{id}")
+	    public String cancellaGioco(@ModelAttribute("gioco")Gioco gioco,
+	    	@PathVariable("id") Long id, Model model) {  
+//	    	Ricetta ricettas = ricettaService.findById(id);
+//	    	Ingrediente in = ingredienteService.findById(idIn);
+	    	Gioco g = giocoService.findById(id);
+	    	model.addAttribute("Gioco",g);
+		 	giocoService.deleteById(id);    	
+//	    	ricettas.getIngredienti().remove(in);   	
+//	    	return "redirect:/Ricette";
+	    	return "redirect:/giochiAdmin";
+	    }   
+    
+    
     /*Form per aggiungere recensioni da Admin in qualsiasi gioco*/
 	 @GetMapping("admin/NewRecensioniAdmin/{id}")
-	    public String addRecensioniAdmin(@ModelAttribute("gioco")Gioco gioco,
+	    public String addRecensioniAdmin(@ModelAttribute("gioco")Gioco gioco,@ModelAttribute("user") User user,
 	    		@PathVariable("id") Long id, Model model) {    	
 	    	    model.addAttribute("recensione", new Recensione());
-	    	    model.addAttribute("gioco", giocoService.findById(id));
-//	    	    List<Ingrediente> ingredienti= ricettaService.findIngredientiByIdRicetta(id);
-	    	    model.addAttribute("id",id);
-//	    	    
-	        
+//	    	    model.addAttribute("gioco", giocoService.findById(id));
+//	    	    model.addAttribute("id",id);
+	    	    model.addAttribute(user);
 	    	return "admin/formNewRecensioniAdmin.html";
 	    }
 	    
 	    @PostMapping("/recensioniNuoveAdmin")
 		public String newRecensioniAdmin(@ModelAttribute("recensione")Recensione recensione,
-				@RequestParam("id")Long id,
-				@ModelAttribute("gioco")Gioco gioco, Model model) {
+				@RequestParam("id")Long id, @RequestParam("rating") Integer rating, @RequestParam("data")String data,
+				/*@ModelAttribute("gioco")Gioco gioco,*/ Model model) {
+	    	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());	    	
 	    	Gioco giocos = giocoService.findById(id);
-//		    List<Ingrediente>ingredienti =  ricettaService.findIngredientiByIdRicetta(id);
+			User user = credentials.getUser();
+			
+//			Gioco giocos= (Gioco)session.getAttribute("giocoMem");
+	    	recensione.setId(null);
+			System.out.println("l'ID della recensione è "+recensione.getId());
+			
+	    	recensione.setGioco(giocos);
+	    	recensione.setNumeroStelle(rating);
+			recensione.setData(data);
+			recensione.setUser(user);
+			
+			this.recensioneService.save(recensione);
+			giocos.getRecensioni().add(recensione);
+			user.getRecensioni().add(recensione);
+			giocoService.save(giocos);
+//			giocos.getRecensioni().add(recensione);
+			
+//			giocoService.save(giocos);
+			
+//			giocos.getRecensioni().add(recensione);
+//			giocoService.save(giocos);
+	    	
+		    
+//		    model.addAttribute("recensioni", recensioneService.TrovaRecensioniId(id));
+			model.addAttribute("recensioni", this.recensioneService.FindRecensioniByUserId(user.getId()));
 
-//		    ricettas.setIngredienti(ingredienti);
-	    	giocos.getRecensioni().add(recensione);
-		    System.out.println("Le recensioni sono:"+gioco.getRecensioni());
-		    // Salva l'ingrediente e aggiorna la ricetta
-		    recensioneService.save(recensione);
-		    giocoService.save(giocos);
-
-		    // Aggiorna il modello con gli ingredienti
-//		    model.addAttribute("Ingredienti", ricetta.getIngredienti());
-		    model.addAttribute("Recensioni", recensioneService.TrovaRecensioniId(id));
-		    System.out.println("L'id e': "+gioco.getId());
-		    return "redirect:/gioco/" + gioco.getId()+"/Recensioni";
+//		    return "redirect:/gioco/" + gioco.getId()+"/recensioni";
+		    return "recensioni.html";
 			//return "redirect:Ricetta/"+ricetta.getId();
 		}
-	
-	
+	    
+	    /*get alla pagina per cancellare*/
+	    @GetMapping("/RecensioniAdmin/{id}")
+		public String getRecensioniCuoco(@PathVariable("id")Long Id,Model model) {
+				model.addAttribute("Recensioni", recensioneService.FindRecensioniByGiocoId(Id));
+				model.addAttribute("Gioco", giocoService.findById(Id));
+				return "admin/cancellaRecensioni.html";
+			}
+	    
+	/*cancella recensioni dal sistema */
+	    @GetMapping("/admin/CancellaRecensioneAdmin/{id}/{giocoid}")
+	    public String cancellaRecensioneAdmin(@ModelAttribute("gioco")Gioco gioco,
+	    					@PathVariable("giocoid")Long giocoid,
+	    		Model model,@PathVariable("id") Long id) {  
+	    	Recensione re = recensioneService.findRecensioneById(id);
+	    	Gioco giocos = giocoService.findById(giocoid);
+	    	
+	    	giocos.getRecensioni().remove(re);
+	    	recensioneService.deleteById(id);
+	    	giocoService.save(giocos);
+	    	
+//	        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+//			User user = credentials.getUser();
+//		   	model.addAttribute("recensioni", recensioneService.FindRecensioniByUserId(user.getId()));
+//			return "admin/cancellaRecensioni.html";
+	    	return "redirect:/RecensioniAdmin/"+giocoid;
+	    }
 }

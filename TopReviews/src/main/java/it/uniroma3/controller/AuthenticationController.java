@@ -29,6 +29,12 @@ public class AuthenticationController {
     @Autowired
 	private UserService userService;
 	
+    @GetMapping("/SceltaRegistrazione")
+	public String sceltaRegistrazione(Model model) {
+		return "SceltaRegistrazione.html";
+	}
+    
+    
 	@GetMapping(value = "/register") 
 	public String showRegisterForm (Model model) {
 		model.addAttribute("user", new User());

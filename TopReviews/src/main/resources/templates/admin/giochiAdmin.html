@@ -122,9 +122,10 @@
             <li th:each="gioco : ${giochi}">
                 <div class="recipe-info">
                     <a th:href="@{'/gioco/' + ${gioco.id}}" th:text="${gioco.title}"></a>
-                    
                 </div>
-               
+               <a th:href="@{'admin/CancellaGiochiAdmin/' + ${gioco.id}}" class="delete-button">Cancella gioco</a>
+			   <a th:href="@{'admin/NewRecensioniAdmin/' + ${gioco.id}}" class="button">Inserisci recensione</a>
+			   <a th:href="@{'/RecensioniAdmin/' + ${gioco.id}}" class="button">Cancella recensioni dal sistema</a>               
             </li>
         </ul>
     </div>
