@@ -8,36 +8,29 @@
         <a href="/success"><img src="/images/trr.png" width="70%" /></a>
     </div>
 	
-	
 	<body>
-		 <form th:action="@{'/addGioco'}" method="POST" th:object="${gioco}">
+		<form th:action="@{'/addGioco'}" method="POST" th:object="${gioco}" enctype="multipart/form-data">
 			<div class="error-message" th:if="${messaggioErrore}">
-			      <span th:text="${messaggioErrore}">Errore</span>
-			              </div>	
-			       
-					      <div>
-			                <label for="title">Titolo:</label>
-			                <input required type="text" id="name" th:field="${gioco.title}">
-						 </div>
-						 <div>
-							<div>
-							    <label for="urlImage">URL immagine:</label>
-							     <input type="url" id="urlImage" th:field="${gioco.urlImage}">
-							     </div>
-							<label for="year">Year:</label>
-			              <input for="year" th:field="${gioco.year}">
-					   </input>
-						  </div>
-						  
-			              <div>
-			                    <button type="submit">Conferma</button>
-			         </div>
-							
-		
-							
-			</form>
-			
-			
+			<span th:text="${messaggioErrore}">Errore</span>
+			</div>	
+	
+				<div>
+			    <label for="title">Titolo:</label>
+			    <input required type="text" id="name" th:field="${gioco.title}"></input>
+				</div>
+				<div>
+			    <label for="year">Year:</label>
+			    <input for="year" th:field="${gioco.year}"></input>
+			    </div>
+				<div>
+					<label>Carica Immagine:</label>
+					<input type="file" name="image" required>
+					</div>
+						<div>
+						<button type="submit">Conferma</button>
+						</div>
+									
+		</form>
 	</body>
 </html>
 

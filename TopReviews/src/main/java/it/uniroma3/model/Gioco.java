@@ -23,31 +23,24 @@ public class Gioco {
 		@GeneratedValue(strategy = GenerationType.AUTO)
 		 private Long id;
 		 private Integer year;
-		 private String urlImage;
 		 private String title;
 		 
 		 
-		 @OneToMany(mappedBy = "gioco",cascade = CascadeType.ALL)
+		 @OneToMany(mappedBy = "gioco")
 		 private List<Recensione>recensioni;
-		 
 
-		// @ManyToOne(cascade = CascadeType.ALL)
-
-//		 public List<Recensione> getRecensioni() {
-//			return recensioni;
-//		}
-//		public void setRecensioni(List<Recensione> recensioni) {
-//			this.recensioni = recensioni;
-//		}
-//		public User getUserg() {
-//			return userg;
-//		}
-//		public void setUserg(User userg) {
-//			this.userg = userg;
-//		}
 		@ManyToOne(cascade = CascadeType.ALL)
 		 private User userg;
-		 
+		
+     	@OneToOne(mappedBy = "gioco",cascade = CascadeType.ALL)
+     	private Image immagine;
+     	
+        public Image getImmagine() {
+    			return immagine;
+    		}
+        public void setImmagine(Image immagine){
+        	this.immagine=immagine;
+        }
 	    public List<Recensione> getRecensioni() {
 			return recensioni;
 		}
@@ -79,17 +72,12 @@ public class Gioco {
 		public void setYear(Integer year) {
 			this.year = year;
 		}
-		public String getUrlImage() {
-			return urlImage;
-		}
-		public void setUrlImage(String urlImage) {
-			this.urlImage = urlImage;
-		}
+	
 		
 		
 	    @Override
 		public int hashCode() {
-			return Objects.hash(id, title, urlImage, year);
+			return Objects.hash(id, title, year);
 		}
 		@Override
 		public boolean equals(Object obj) {

@@ -1,21 +1,22 @@
 package it.uniroma3.model;
 
+import java.sql.Date;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+
 
 @Entity
 public class Recensione {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	 private Long id;
-	 private String data;
+	 private Date data;
 	 private String titolo;
 	 private String testo;
 	 private Integer numeroStelle;
@@ -47,10 +48,10 @@ public class Recensione {
 		this.id = id;
 	}
 	
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 	

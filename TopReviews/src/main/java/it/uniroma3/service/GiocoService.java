@@ -1,20 +1,26 @@
 package it.uniroma3.service;
 
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import it.uniroma3.model.Gioco;
+//import it.uniroma3.model.Image;
 import it.uniroma3.repository.GiocoRepository;
+//import it.uniroma3.repository.ImageRepository;
+//import it.uniroma3.repository.ImageRepository;
 
 @Service
 public class GiocoService {
 
 	@Autowired		
 	private GiocoRepository giocoRepository;
+	
+//	@Autowired 
+//	private ImageRepository imageRepository;
 	
 	public Gioco findById(Long id) {
 		return giocoRepository.findById(id).get();

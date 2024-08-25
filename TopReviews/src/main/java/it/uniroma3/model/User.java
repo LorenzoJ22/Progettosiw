@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,13 +28,15 @@ public class User {
 	private String email;
 	
 	
+	
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Recensione>recensioni;
 	
-	@OneToMany(mappedBy = "userg", cascade = CascadeType.ALL)
-	private List<Gioco> giochi;
+    @OneToMany(mappedBy = "userg", cascade = CascadeType.ALL)
+ 	private List<Gioco> giochi;
 	
-	
+//    @OneToOne(mappedBy="user")
+//    private Image immagine;
 	
 	
     public List<Recensione> getRecensioni() {

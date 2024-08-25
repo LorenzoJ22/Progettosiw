@@ -10,12 +10,20 @@
 			<div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
 			
 			<div th:if="${recensioni.isEmpty()}">Non ci sono recensioni nel sistema</div>
+			<ul th:each="recensione : ${recensioni}">
+	         <a th:href="@{'/recensione/' + ${recensione.id}}" th:text="${recensione.titolo}">recensione</a>
+				<form th:action="@{'/User/CancellaRecensione/' + ${recensione.id}}" method="get">
+				    <button type="submit";style=align:right>Cancella</button>
+				</form>
+				
 			
-			<li th:each="recensione : ${recensioni}">
+				
+			<!--
 			 <a th:href="@{'/User/CancellaRecensione/' + ${recensione.id}}" th:text="${recensione.titolo}">recensione</a>
 					 </a>
+					 -->
 					 
-			 </li>
+			 </ul>
 		</body>
 	
 	
