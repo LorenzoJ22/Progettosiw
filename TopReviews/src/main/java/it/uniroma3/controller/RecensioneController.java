@@ -26,7 +26,6 @@ import it.uniroma3.service.RecensioneService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@Transactional
 public class RecensioneController {
 	
 	@Autowired CredentialsService credentialsService;
@@ -52,7 +51,6 @@ public class RecensioneController {
 		return "recensione.html";
 		
 	}
-	//oorknrnvor3nopp
 	@GetMapping("/gioco/{id}/recensioni")
 	public String getRecensioniPerGioco(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("recensioni", this.recensioneService.FindRecensioniByGiocoId(id));

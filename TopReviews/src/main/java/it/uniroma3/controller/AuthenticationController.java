@@ -1,5 +1,7 @@
 package it.uniroma3.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -13,10 +15,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.model.Credentials;
 import it.uniroma3.model.User;
 import it.uniroma3.service.CredentialsService;
+import it.uniroma3.service.ImageService;
 import it.uniroma3.service.UserService;
 //import jakarta.validation.Valid;
 
@@ -28,6 +33,8 @@ public class AuthenticationController {
 
     @Autowired
 	private UserService userService;
+    @Autowired 
+    private ImageService imageservice;
 	
     @GetMapping("/SceltaRegistrazione")
 	public String sceltaRegistrazione(Model model) {
@@ -98,11 +105,12 @@ public class AuthenticationController {
                  BindingResult userBindingResult, /*@Valid*/
                  @ModelAttribute("credentials") Credentials credentials,
                  BindingResult credentialsBindingResult,
-                 Model model) {
+                 Model model,@RequestParam("imageUser") MultipartFile imageFile) throws IOException {
 		
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.saveUser(user);
+            imageservice.saveImage(imageFile);
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
             model.addAttribute("user", user);

@@ -20,19 +20,19 @@ public class Image {
 
     private String name;
 
-    @Lob
+    
     private byte[] data;
 
     private String contentType;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Gioco gioco;
     
 	// Getters e setters
     public Gioco getGioco() {
 		return gioco;
 	}
-
+   
 	public void setGioco(Gioco gioco) {
 		this.gioco = gioco;
 	}

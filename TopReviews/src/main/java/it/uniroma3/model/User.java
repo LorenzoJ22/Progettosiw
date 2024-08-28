@@ -36,11 +36,17 @@ public class User {
     @OneToMany(mappedBy = "userg", cascade = CascadeType.ALL)
  	private List<Gioco> giochi;
 	
-//    @OneToOne(mappedBy="user")
-//    private Image immagine;
+    
+    @OneToOne 
+    private Image image;
+
 	
 	
-    public List<Recensione> getRecensioni() {
+    public Image getImage() {
+		return image;
+	}
+
+	public List<Recensione> getRecensioni() {
 		return recensioni;
 	}
     

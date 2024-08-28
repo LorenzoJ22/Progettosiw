@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import it.uniroma3.service.UserService;
-import it.uniroma3.service.RecensioneService;
 
 @Controller
 
 public class UserController {
 	@Autowired UserService userService;
-	@Autowired RecensioneService ricettaService;
 	
 	 @GetMapping("/Utente/{id}")
 		public String getUtente(@PathVariable("id")Long id ,Model model) {

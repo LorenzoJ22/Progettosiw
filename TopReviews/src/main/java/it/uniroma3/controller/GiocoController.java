@@ -54,7 +54,6 @@ public class GiocoController {
 
 	
 	@GetMapping("/gioco/{id}")
-	@Transactional
 	public String getGioco(@PathVariable("id") Long id, Model model,HttpSession session) {
 		Gioco gioco = this.giocoService.findById(id);
 		model.addAttribute("gioco", gioco);
@@ -99,7 +98,6 @@ public class GiocoController {
 	
 
 	@GetMapping("/aggiungiGioco")
-	@Transactional
 	public String AddGioco(Model model) {
 		model.addAttribute("gioco",new Gioco());
 		
@@ -112,7 +110,6 @@ public class GiocoController {
 	}
 	
 	@PostMapping("/addGioco")
-	@Transactional
 	public String newGioco(
 			@ModelAttribute("gioco")Gioco gioco, Model model,@RequestParam("image") MultipartFile imageFile) throws IOException {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
