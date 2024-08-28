@@ -12,16 +12,13 @@
 	a[href], a[href]:hover {color: grey; font-size: 0.5em; text-decoration: none}
 
 
-	body
-	{
-	  background: white !important;
-	}
+	
 
 	.starrating > input {display: none;}  /* Remove radio buttons */
 
 	.starrating > label:before { 
 	  content: "\f005"; /* Star */
-	  margin: 2px;
+	  margin: 3px;
 	  font-size: 1.5em;
 	  font-family: FontAwesome;
 	  
@@ -30,7 +27,7 @@
 
 	.starrating > label
 	{
-	  color: #222222; /* Start color when not clicked */
+	  color: rgba(100, 100, 10, 5.8); /* Start color when not clicked */
 	}
 
 	.starrating > input:checked ~ label
@@ -39,8 +36,78 @@
 	.starrating > input:hover ~ label
 	{ color: #ffca08 ;  } /* Set yellow color when star hover */
 
+
+	body {
+            background: url('/images/col.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: rgba(0, 0, 0, 0.8); /* Testo giallo */
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px 10px;
+            text-align: center;
+        }
+
+        .logo img {
+            width: 15%;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7); /* Sfondo semi-trasparente */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .error-message {
+            color: #ff0000; /* Rosso per i messaggi di errore */
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #ffeb3b; /* Testo giallo per le etichette */
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        input[type="text"], textarea {
+            width: 50%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid yellow; /* Bordo nero */
+            margin-bottom: 25px;
+            background-color: rgba(0, 0, 10, 0.8); /* Sfondo bianco per gli input */
+            color: yellow; /* Testo grigio scuro per una buona leggibilità */
+        }
+
+        button {
+            background-color: #000; /* Sfondo nero */
+            color: #ffeb3b; /* Testo giallo */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 2px solid yellow; /* Bordo nero */
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #b71c1c; /* Sfondo rosso al passaggio del mouse */
+        }
+
 </style>
-	
+	<header>
+        <div class="logo">
+            <a href="/success"><img src="/images/trr.png" width="15%"></a>
+        </div>
+    </header>
 	
 	<body>
 		 <form th:action="@{'/addRecensione'}" method="POST" th:object="${recensione}">

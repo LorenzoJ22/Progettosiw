@@ -25,14 +25,13 @@ public class ImageService {
        
         return imageRepository.save(image);
     }
-   
+    
     public Optional<Image> getImage(Long id) {
         return imageRepository.findById(id);
     }
     
     public Optional<Image> getImageByGiocoid(Long id){
-    	
-    	return imageRepository.findImageBygioco_id(id);
+    	return imageRepository.findImageByGiocoid(id);
     	
     }
 }

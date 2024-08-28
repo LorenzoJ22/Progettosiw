@@ -43,35 +43,32 @@ public class RecensioneController {
 
 	
 	@GetMapping("/recensione/{id}")
-	
+	@Transactional
 	public String GetRecensione(@PathVariable("id") Long id, Model model) {
-	
-		model.addAttribute("recensione",this.recensioneService.findRecensioneById(id));
-		
+		Recensione recensione = recensioneService.findRecensioneById(id);
+		model.addAttribute("recensione",recensione);
+		model.addAttribute("rating",recensione.getNumeroStelle());
 		return "recensione.html";
 		
 	}
 	@GetMapping("/gioco/{id}/recensioni")
+	@Transactional
 	public String getRecensioniPerGioco(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("recensioni", this.recensioneService.FindRecensioniByGiocoId(id));
 		return "recensioni.html";
 	}
 	
 
-	
-
-
 	@GetMapping("/recensione/user/{id}")
-	
+	@Transactional
 	public String FindRecensioniByUsergId(Model model,@PathVariable("id") Long id){
-		
 		model.addAttribute("recensioni",recensioneService.FindRecensioniByUserId(id));
-		
 		return "user/DeleteRecensioni.html";
 		
 	}
 	
 	@GetMapping("/aggiungiRecensione")
+	@Transactional
 	public String AddRecensione(Model model,@ModelAttribute("user") User user) {
 		Recensione r=new Recensione();
 		model.addAttribute("recensione",r);
@@ -81,7 +78,7 @@ public class RecensioneController {
 	}
 	
 	@PostMapping("/addRecensione")
-	
+	@Transactional
 		public String newRecensione(
 				@ModelAttribute("recensione")Recensione recensione, Model model,HttpSession session,
 			     @RequestParam("rating") Integer rating, @RequestParam("data")Date data) {
@@ -89,7 +86,12 @@ public class RecensioneController {
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 			User user = credentials.getUser();
 			Gioco gioco= (Gioco)session.getAttribute("giocoMem");
-			
+			if (rating == null) {//da finire errore
+		        // Aggiungi un messaggio di errore al modello
+		        model.addAttribute("error", "Devi selezionare un punteggio per la recensione.");
+		        // Ritorna alla pagina di inserimento recensione
+		        return "recensioneForm"; // Assicurati che questo sia il nome corretto del tuo template di inserimento
+		    }
 			recensione.setGioco(gioco);
 			recensione.setNumeroStelle(rating);
 			recensione.setData(data);
@@ -98,11 +100,12 @@ public class RecensioneController {
 		    this.recensioneService.save(recensione);
 		    user.getRecensioni().add(recensione);
 			model.addAttribute("recensioni", this.recensioneService.FindRecensioniByUserId(user.getId()));
-			return "redirect:/recensioni";
+//			return "redirect:/recensioni";
+			return "redirect:/gioco/"+gioco.getId()+"/recensioni";
 		}
 	
 	@GetMapping("/User/CancellaRecensione/{id}")
-	
+	@Transactional
     public String cancellaRecensione(Model model,@PathVariable("id") Long id) {  
         recensioneService.deleteById(id);
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();

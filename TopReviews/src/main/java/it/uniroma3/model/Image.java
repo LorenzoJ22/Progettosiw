@@ -25,17 +25,17 @@ public class Image {
 
     private String contentType;
     
-    @OneToOne
-    private Gioco gioco;
-    
-	// Getters e setters
-    public Gioco getGioco() {
-		return gioco;
-	}
-   
-	public void setGioco(Gioco gioco) {
-		this.gioco = gioco;
-	}
+//    @OneToOne
+//    private Gioco gioco;
+//    
+//	// Getters e setters
+//    public Gioco getGioco() {
+//		return gioco;
+//	}
+//   
+//	public void setGioco(Gioco gioco) {
+//		this.gioco = gioco;
+//	}
 
 
     public Long getId() {

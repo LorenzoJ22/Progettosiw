@@ -7,31 +7,116 @@
     <title>Utente</title>
     <link rel="stylesheet" href="/css/stile.css?version=2">
     <style>
-        /* CSS inline per dimostrazione; sposta in stile.css */
         body {
             font-family: Arial, sans-serif;
-            background: url('/images/ul.jpg') no-repeat center center fixed; 
-    		background-size: cover;
+            background: url('/images/col.jpg') no-repeat center center fixed;
+            background-size: cover;
             margin: 0;
             padding: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        .content {
+            color: #ffeb3b; /* Testo giallo */
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
         }
 
+        /* Stile per l'header */
+        header {
+            background-color: #333;
+            color: #ffeb3b; /* Testo giallo */
+            padding: 16px 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header div {
+            margin: 0 20px;
+        }
+
+        header a {
+            color: #ffeb3b; /* Testo giallo */
+            text-decoration: none;
+            margin-left: 11px;
+            padding: 12px 15px;
+            border-radius: 6px;
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo rosso */
+            transition: background-color 0.3s;
+            font-size: 19px;
+            align-items: center;
+        }
+
+        header a:hover {
+            background-color: #c62828; /* Sfondo rosso più scuro al passaggio del mouse */
+        }
+
+        /* Stile per il titolo */
         h1 {
-            color: #333;
+            color: #ffeb3b; /* Testo giallo */
+            font-size: 36px;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombra al testo */
+        }
+
+        /* Stile per la lista */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+            width: 60%; /* Imposta una larghezza per la lista */
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        .recipe-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo semi-trasparente per le caselle */
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Stile per i link */
+        a.recipe-name {
+            text-decoration: none;
+            color: #ffeb3b; /* Testo giallo */
+            font-size: 22px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: black; /* Sfondo rosso */
+            transition: background-color 0.3s;
+        }
+
+        a.recipe-name:hover {
+            background-color: #c62828; /* Sfondo rosso più scuro al passaggio del mouse */
+        }
+
+        .chef-name {
+            color: #ffeb3b; /* Testo giallo */
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        /* Stile per il pulsante di ritorno */
+        .link-button {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 15px 30px;
+            border-radius: 5px;
+            background-color: black; /* Sfondo rosso */
+            color: #ffeb3b; /* Testo giallo */
+            text-decoration: none;
+            font-size: 24px;
+            transition: background-color 0.3s;
+        }
+
+        .link-button:hover {
+            background-color: #c62828; /* Sfondo rosso più scuro al passaggio del mouse */
         }
     </style>
 </head>
@@ -39,7 +124,7 @@
 <body>
     <header>
         <div class="logo">
-            <a href="/success"><img src="/images/trr.png" width="30%"></a>
+            <a href="/success"><img src="/images/trr.png" width="25%"></a>
         </div>
     </header>
 

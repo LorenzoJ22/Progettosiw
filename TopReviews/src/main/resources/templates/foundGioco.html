@@ -7,21 +7,22 @@
     <title>Ricette</title>
     <link rel="stylesheet" href="/css/stile.css">
     <style>
-        /* CSS inline per dimostrazione; sposta in stile.css */
-        body {
+         body {
             font-family: Arial, sans-serif;
-            background: url('/images/ul.jpg') no-repeat center center fixed; 
-    		background-size: cover;
+            background: url('/images/col.jpg') no-repeat center center fixed;
+            background-size: cover;
             margin: 0;
             padding: 0;
+            color: #ffeb3b; /* Testo giallo */
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
+        /* Stile per l'header */
         header {
             background-color: #333;
-            color: #fff;
+            color: #ffeb3b; /* Testo giallo */
             padding: 10px 0;
             width: 100%;
             display: flex;
@@ -34,30 +35,34 @@
         }
 
         header a {
-            color: #fff;
+            color: #ffeb3b; /* Testo giallo */
             text-decoration: none;
             margin-left: 10px;
             padding: 10px 20px;
             border-radius: 5px;
-            background-color: #555;
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo rosso */
             transition: background-color 0.3s;
             font-size: 18px;
         }
 
         header a:hover {
-            background-color: #777;
+            background-color: #c62828; /* Sfondo rosso più scuro al passaggio del mouse */
         }
 
+        /* Stile per il titolo */
         h1 {
-            color: #333;
+            color: #ffeb3b; /* Testo giallo */
             font-size: 36px;
             margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombra al testo */
         }
 
+        /* Stile per la lista */
         ul {
             list-style-type: none;
             padding: 0;
-            text-align: left; /* Allinea a sinistra */
+            text-align: left;
+            width: 60%; /* Imposta una larghezza per la lista */
         }
 
         li {
@@ -65,44 +70,53 @@
         }
 
         .recipe-item {
-            display: flex; /* Usa flexbox per allineare gli elementi */
-            align-items: center; /* Allinea verticalmente gli elementi */
-            margin-bottom: 10px; /* Aggiungi spazio tra le ricette */
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo semi-trasparente per le caselle */
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        a {
+        /* Stile per i link */
+        a.recipe-name {
             text-decoration: none;
-            color: #333;
-            display: block;
+            color: #ffeb3b; /* Testo giallo */
+            font-size: 22px;
+            font-weight: bold;
             padding: 10px 20px;
             border-radius: 5px;
-            background-color: #e0e0e0;
+            background-color: black; /* Sfondo rosso */
             transition: background-color 0.3s;
         }
 
-
-        .recipe-name:hover {
-            background-color: #ccc;
+        a.recipe-name:hover {
+            background-color: #c62828; /* Sfondo rosso più scuro al passaggio del mouse */
         }
-        
+
+        .chef-name {
+            color: #ffeb3b; /* Testo giallo */
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        /* Stile per il pulsante di ritorno */
         .link-button {
             display: inline-block;
-            margin: 10px 0;
-            padding: 10px 25px;
+            margin: 20px 0;
+            padding: 15px 30px;
             border-radius: 5px;
-            background-color: #e0e0e0;
-            color: #333;
+            background-color: black; /* Sfondo rosso */
+            color: #ffeb3b; /* Testo giallo */
             text-decoration: none;
-            font-size: 24px; /* Aumentato la dimensione del testo */
+            font-size: 24px;
             transition: background-color 0.3s;
         }
 
-       
-        .chef-name {
-    color: #666; /* Colore testo per il nome del cuoco */
-    font-size: 18px; /* Dimensione del testo per il nome del cuoco */
-    margin-left: 10px; /* Aggiungi margine a sinistra per separare dal nome della ricetta */
-}
+        .link-button:hover {
+            background-color: #c62828; /* Sfondo rosso più scuro al passaggio del mouse */
+        }
         
     </style>
 </head>
@@ -122,13 +136,13 @@
         <a href="/success"><img src="/images/trr.png" width="20%" /></a>
     </div>
     <h1>Giochi che soddisfano i requisiti</h1>
-
+	<h1>Risultati per: <span th:text="${searchedTitle}"></span></h1>
     <div th:if="${giochi.isEmpty()}">Non ci sono giochi che soddisfano i requisiti</div>
 
     <ul th:if="${!giochi.isEmpty()}">
         <li th:each="Gioco : ${giochi}">
             <div class="recipe-item">
-                <a th:href="@{'/gioco/' + ${Gioco.id}}" class="recipe-name" th:text="${Gioco.title}"></a>
+                <a th:href="@{'/gioco/' + ${Gioco.id}}"  th:text="${Gioco.title}"></a>
                 <span>Nome User: </span>
                 <a th:href="@{'/Utente/' + ${Gioco.userg.id}}"  th:text="${Gioco.userg.name}"></a>
                 

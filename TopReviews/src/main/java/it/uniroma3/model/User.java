@@ -37,12 +37,16 @@ public class User {
  	private List<Gioco> giochi;
 	
     
-    @OneToOne 
-    private Image image;
+   @OneToOne 
+  private Image image;
 
 	
 	
-    public Image getImage() {
+    public void setImage(Image image) {
+		this.image = image;
+	}
+
+	public Image getImage() {
 		return image;
 	}
 

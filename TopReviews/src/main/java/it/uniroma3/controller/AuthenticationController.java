@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.model.Credentials;
+import it.uniroma3.model.Image;
 import it.uniroma3.model.User;
 import it.uniroma3.service.CredentialsService;
 import it.uniroma3.service.ImageService;
@@ -110,7 +111,8 @@ public class AuthenticationController {
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.saveUser(user);
-            imageservice.saveImage(imageFile);
+            Image ImmagineSalvata= imageservice.saveImage(imageFile);
+            user.setImage(ImmagineSalvata);
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
             model.addAttribute("user", user);

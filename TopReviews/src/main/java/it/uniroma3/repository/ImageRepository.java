@@ -14,8 +14,7 @@ import it.uniroma3.model.Image;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
 	
-	@Query(value = "SELECT * FROM Image WHERE gioco_id = :fid", nativeQuery = true)
-	
-	public Optional<Image> findImageBygioco_id (@Param("fid") Long id);
+	@Query(value = "SELECT * FROM image WHERE gioco_id = :fid", nativeQuery = true)
+	public Optional<Image> findImageByGiocoid (@Param("fid") Long id);
 	
 }
