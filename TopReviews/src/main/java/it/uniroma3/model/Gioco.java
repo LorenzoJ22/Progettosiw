@@ -26,31 +26,16 @@ public class Gioco {
 		 private String title;
 		 
 		 
-		 @OneToMany(mappedBy = "gioco")
+		 @OneToMany(mappedBy = "gioco",cascade = CascadeType.ALL)
 		 private List<Recensione>recensioni;
 
-
-		// @ManyToOne(cascade = CascadeType.ALL)
-
-//		 public List<Recensione> getRecensioni() {
-//			return recensioni;
-//		}
-//		public void setRecensioni(List<Recensione> recensioni) {
-//			this.recensioni = recensioni;
-//		}
-//		public User getUserg() {
-//			return userg;
-//		}
-//		public void setUserg(User userg) {
-//			this.userg = userg;
-//		}
-
-		@ManyToOne(cascade = CascadeType.ALL)
-
+		@ManyToOne
 		 private User userg;
 
      	@OneToOne(mappedBy = "gioco",cascade = CascadeType.ALL)
      	private Image immagine;
+     	
+     	
      	
         public Image getImmagine() {
     			return immagine;

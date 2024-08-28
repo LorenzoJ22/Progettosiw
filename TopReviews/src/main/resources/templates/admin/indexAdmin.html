@@ -7,11 +7,74 @@
     <link rel="stylesheet" href="/css/indexAdmin.css">
 </head>
 
+<style>
+/* Aggiungi uno sfondo a tutta la pagina */
+body {
+    background-image: url('/images/col.jpg'); /* Immagine di sfondo */
+    background-size: cover; /* Adatta l'immagine a tutto lo schermo */
+    background-position: center; /* Centra l'immagine di sfondo */
+    background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+    font-family: Arial, sans-serif; /* Font per il testo */
+    margin: 0; /* Elimina il margine predefinito */
+    padding: 0; /* Elimina il padding predefinito */
+}
+
+/* Stile per l'intestazione */
+header {
+    background-color: rgba(0, 0, 0, 0.7); /* Sfondo semitrasparente */
+    padding: 10px;
+    text-align: center; /* Allinea il testo a destra */
+    color: yellow; /* Colore del testo */
+    font-size: 15px;
+}
+
+header a {
+    color: white;
+    text-align: center; /* Centra il contenuto dell'intestazione */
+    text-decoration: none; /* Rimuove la sottolineatura dei link */
+    margin-left: 15px;
+}
+
+/* Stile per il logo */
+.logo {
+    text-align: center; /* Allinea il logo al centro */
+    margin-top: 20px; /* Spazio sopra il logo */
+}
+
+/* Stile per il contenuto */
+.content {
+    text-align: center; /* Allinea il testo al centro */
+    margin-top: 50px; /* Spazio sopra il contenuto */
+    color: white; /* Colore del testo */
+}
+
+/* Stile per i pulsanti */
+.link-button {
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.8); /* Colore del bottone */
+    color: yellow; /* Colore del testo */
+    padding: 15px 25px; /* Spaziatura interna del bottone */
+    margin: 10px 0; /* Margine intorno ai bottoni */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    border-radius: 5px; /* Arrotonda gli angoli */
+    font-size: 18px;
+    transition: background-color 0.3s; /* Transizione per hover */
+}
+
+/* Stile per l'hover dei pulsanti */
+.link-button:hover {
+    background-color: red; /* Colore del bottone al passaggio del mouse */
+}
+
+</style>
+
+
+
 <body>
     
     <header>
         <div th:if="${userDetails}">
-            <span th:text="${userDetails.username}"></span>
+            <span th:text="${userDetails.username}" ></span>
             <a href="/logout">Logout</a>
         </div>
 
@@ -19,10 +82,10 @@
             <a href="/login">Login</a>
         </div>
     </header>
-
     <div class="logo">
         <a><img src="/images/trr.png" width="30%" /></a>
     </div>
+
     <div class="content">
         <h1>Consulta l'archivio</h1>
         <div>

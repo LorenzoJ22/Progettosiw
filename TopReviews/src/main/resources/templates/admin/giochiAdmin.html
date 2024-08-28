@@ -7,101 +7,97 @@
     <title>Giochi</title>
     <link rel="stylesheet" href="/stile.css?version=2">
     <style>
-        /* CSS inline per dimostrazione; sposta in stile.css */
-        body {
+         body {
             font-family: Arial, sans-serif;
-            background: url('/images/ul.jpg') no-repeat center center fixed; 
-    		background-size: cover;
+            background: url('/images/col.jpg') no-repeat center center fixed;
+            background-size: cover;
             margin: 0;
             padding: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        .content {
+            color: #ffeb3b; /* Colore del testo giallo */
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
         }
 
+        /* Stile per l'header */
+        header {
+            background-color: #333;
+            color: #ffeb3b; /* Colore del testo giallo */
+            padding: 10px 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            max-width: 15%;
+            height: auto;
+        }
+
+        /* Stile per il titolo */
         h1 {
-            color: #333;
+            color: #ffeb3b; /* Colore del testo giallo */
+            font-size: 36px;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombra al testo */
         }
 
+        /* Stile per la lista di giochi */
         .recipe-list {
             list-style-type: none;
             padding: 0;
+            width: 110%; /* Imposta una larghezza per la lista */
         }
 
         .recipe-list li {
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo semi-trasparente per ogni elemento */
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            background-color: #fff;
-            margin: 20px 0;
-            padding: 10px 90px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            position: relative;
+            align-items: center;
         }
 
-        .recipe-list a {
+        /* Stile per i link dei giochi */
+        .recipe-info a {
+            color: #ffeb3b; /* Colore del testo giallo */
             text-decoration: none;
-            color: #007BFF;
+            font-size: 22px;
             font-weight: bold;
         }
 
-        .recipe-list a:hover {
+        .recipe-info a:hover {
             text-decoration: underline;
         }
 
+        /* Stile per i bottoni */
+        .button,
+        .delete-button {
+            text-decoration: none;
+            color: #ffeb3b; /* Colore del testo giallo */
+            background-color: #000; /* Sfondo nero */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+            margin-left: 10px;
+        }
+
+        .button:hover,
+        .delete-button:hover {
+            background-color: #b71c1c; /* Sfondo rosso al passaggio del mouse */
+            color: #fff; /* Colore del testo bianco al passaggio del mouse */
+        }
+
+        /* Stile per il messaggio di assenza di giochi */
         .no-recipes {
-            color: #ff0000;
+            color: #ffeb3b; /* Colore del testo giallo */
             font-size: 18px;
             margin-top: 20px;
         }
-
-        .delete-button {
-            color: #ff0000;
-            font-size: 16px;
-            margin-left: 10px;
-            padding: 5px 10px;
-            border: 1px solid #ff0000;
-            border-radius: 5px;
-            background-color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .delete-button:hover {
-            background-color: #ffcccc;
-        }
-        
-        .button {
-            color: #888;
-            font-size: 11px;
-            margin-left: 9px;
-            padding: 5px 15px;
-            border: 1px solid #ff0000;
-            border-radius: 5px;
-            background-color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-          
-        }
-
-        .button:hover {
-            background-color: #ggcccc;
-        }
-        
-        
 
     </style>
 </head>

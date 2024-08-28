@@ -1,26 +1,109 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		
-	</head>
-	<body>
-		<div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
-		
-		<div th:unless="${recensione}">Non esiste</div>
-		
-	  <h1 th:text="${recensione.titolo}">Titolo recensione </h1>
-	<div>
-		<a th:text="${recensione.user.name}"></a>
-	</div>
-	  
-	<div>
-	   <a th:text="${recensione.data}"></a>
-	</div>
-	<div>
-	   <a th:text="${recensione.testo}"></a>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettagli Recensione</title>
+    <style>
+        body {
+            background: url('/images/col.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffeb3b; /* Testo giallo */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 50%;
+            border-radius: 8px;
+        }
+
+        .content {
+            background-color: rgba(0, 0, 0, 0.7); /* Sfondo semi-trasparente */
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #ffeb3b; /* Testo giallo */
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ffeb3b; /* Testo giallo */
+        }
+
+        .details {
+            margin-bottom: 15px;
+        }
+
+        .details a {
+            color: #ffeb3b; /* Testo giallo per i link */
+            text-decoration: none;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .details a:hover {
+            color: #fff; /* Testo bianco al passaggio del mouse */
+            background-color: #b71c1c; /* Sfondo rosso al passaggio del mouse */
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .rating {
+            font-size: 1.5em;
+            color: #ffca08; /* Colore giallo delle stelle */
+        }
+
+        .rating .fa-star {
+            color: #ffca08; /* Colore giallo delle stelle */
+        }
+
+        .rating .fa-star.checked {
+            color: #ffca08; /* Colore giallo delle stelle selezionate */
+        }
+
+        .rating .fa-star.unchecked {
+            color: #444; /* Colore grigio scuro per le stelle non selezionate */
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <header>
+        <div><a href="/"><img src="/images/trr.png" alt="Logo"></a></div>
+    </header>
+
+    <div class="content">
+        <div th:unless="${recensione}">
+            <p>Non esiste</p>
+        </div>
+
+        <h1 th:text="${recensione.titolo}">Titolo recensione</h1>
+
+        <div class="details">
+            <p><strong>Utente:</strong> <span th:text="${recensione.user.name}"></span></p>
+            <p><strong>Data:</strong> <span th:text="${recensione.data}"></span></p>
+            <p><strong>Testo:</strong> <span th:text="${recensione.testo}"></span></p>
+        </div>
+
+        <!-- Visualizzazione delle stelle -->
+        <div class="rating">
+            <span th:each="i : ${#numbers.sequence(1, 5)}"
+                  th:classappend="${i <= rating ? 'fa-star checked' : 'fa-star unchecked'}"
+                  class="fa"></span>
+        </div>
     </div>
-	 			 
-	 
-	 </div>
-	</body>
+</body>
+
 </html>

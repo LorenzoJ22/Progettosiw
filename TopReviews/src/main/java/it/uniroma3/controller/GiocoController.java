@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.uniroma3.repository.GiocoRepository;
 import java.util.*;
@@ -63,7 +64,7 @@ public class GiocoController {
 		return "gioco.html";
 	}
 	
-	/*vedere le recensioni del gioco meglio*/
+	/*vedere le recensioni del gioco meglio ancora non usato*/
 	@GetMapping("/giocoStile/{id}")
 	public String getGiocoStile(@PathVariable("id") Long id, Model model,HttpSession session) {
 		Gioco gioco = this.giocoService.findById(id);
@@ -84,31 +85,55 @@ public class GiocoController {
 
 	 /*SearchGioco form da IndexAdmin*/
     @GetMapping("/formSearchGioco")
+    @Transactional
 	public String formSearchGioco() {
 		return "formSearchGioco.html";
 	}
     
     /*fare in modo che quando scrivo qualcosa lo prenda sia da maiuscolo che da minuscolo*/
 	@PostMapping("/searchGioco")
-	public String searchRicetta(Model model, @RequestParam("title")String title) {
-//		model.addAttribute("ricette", this.ricettaService.findByName(name));
-		model.addAttribute("giochi", giocoRepository.findByTitleIgnoreCase(title));
-		return "foundGioco.html";
+	@Transactional
+	public String searchGioco(Model model, @RequestParam("title")String title, HttpSession session) {
+//		model.addAttribute("giochi", giocoRepository.findByTitleIgnoreCase(title));
+//		 model.addAttribute("searchedTitle", title);
+		List<Gioco> giochi = giocoRepository.findByTitleIgnoreCase(title);
+	    
+	    // Memorizza i risultati della ricerca nella sessione
+	    session.setAttribute("giochi", giochi);
+	    session.setAttribute("searchedTitle", title);
+//		return "foundGioco.html";
+		return "redirect:/foundGioco";
+	}
+	@GetMapping("/foundGioco")
+	public String foundGioco(Model model, HttpSession session) {
+	    // Recupera i dati dalla sessione
+	    List<Gioco> giochi = (List<Gioco>) session.getAttribute("giochi");
+	    String searchedTitle = (String) session.getAttribute("searchedTitle");
+	    
+	    // Aggiungi i dati al modello
+	    model.addAttribute("giochi", giochi);
+	    model.addAttribute("searchedTitle", searchedTitle);
+	    
+	    // Rimuovi i dati dalla sessione se non li vuoi persistere tra le richieste
+//	    session.removeAttribute("giochi");
+//	    session.removeAttribute("searchedTitle");
+	    
+	    return "foundGioco.html";
 	}
 	
 	
 
-	@GetMapping("/aggiungiGioco")
-	@Transactional
-	public String AddGioco(Model model) {
-		model.addAttribute("gioco",new Gioco());
-		
-		return "formNewGioco.html";
-	}
 	@GetMapping("/gioco/user/{id}")
 	public String GetgiocoByUsergId(Model model,@PathVariable("id") Long id){
 		model.addAttribute("giochi",giocoService.findByUserId(id));
 		return "giochi.html";
+	}
+	
+	@GetMapping("/aggiungiGioco")
+	@Transactional
+	public String AddGioco(Model model) {
+		model.addAttribute("gioco",new Gioco());
+		return "formNewGioco.html";
 	}
 	
 	@PostMapping("/addGioco")

@@ -7,85 +7,90 @@
     <title>Recensioni</title>
     <link rel="stylesheet" href="/stile.css?version=2">
     <style>
-        /* CSS inline per dimostrazione; sposta in stile.css */
         body {
             font-family: Arial, sans-serif;
-            background: url('/images/ul.jpg') no-repeat center center fixed; 
-    		background-size: cover;
+            background: url('/images/col.jpg') no-repeat center center fixed;
+            background-size: cover;
             margin: 0;
             padding: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        .logo {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .logo img {
-            width: 80%;
-        }
-
-        .content {
+            color: #ffeb3b; /* Colore del testo giallo */
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
         }
 
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            background-color: #fff;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        /* Stile per l'header */
+        header {
+            background-color: #333;
+            color: #ffeb3b; /* Colore del testo giallo */
+            padding: 10px 0;
+            width: 100%;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
         }
 
+        .logo img {
+            max-width: 15%;
+            height: auto;
+        }
+
+        /* Stile per il titolo */
+        h1 {
+            color: #ffeb3b; /* Colore del testo giallo */
+            font-size: 36px;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombra al testo */
+        }
+
+        /* Stile per la lista delle recensioni */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 110%; /* Imposta una larghezza per la lista */
+        }
+
+        li {
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo semi-trasparente per ogni elemento */
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Stile per le informazioni delle recensioni */
         .recens-info {
-            flex: 2;
+            margin-bottom: 10px;
         }
 
         .recens-info span {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
-        .actions {
-            text-align: right;
-        }
-
-        a {
-            color: #333;
+        /* Stile per i bottoni */
+        .actions a {
             text-decoration: none;
-            margin-left: 10px;
-            padding: 5px 10px;
-            border-radius: 3px;
-            background-color: #e0e0e0;
-            transition: background-color 0.3s;
+            color: #ffeb3b; /* Colore del testo giallo */
+            background-color: #000; /* Sfondo nero */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        a:hover {
-            background-color: #ccc;
+        .actions a:hover {
+            background-color: #b71c1c; /* Sfondo rosso al passaggio del mouse */
+            color: #fff; /* Colore del testo bianco al passaggio del mouse */
+        }
+
+        /* Stile per il messaggio di assenza di recensioni */
+        .no-reviews {
+            color: #ffeb3b; /* Colore del testo giallo */
+            font-size: 18px;
+            margin-top: 20px;
         }
     </style>
 </head>

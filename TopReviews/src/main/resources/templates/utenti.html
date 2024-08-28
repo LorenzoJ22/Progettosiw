@@ -5,88 +5,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Utenti</title>
-    <link rel="stylesheet" href="/stile.css?version=2">
-    <style>
-        /* CSS inline per dimostrazione; sposta in stile.css */
+    
+</head>
+<style>
+        /* Stile generale per la pagina */
         body {
             font-family: Arial, sans-serif;
-            background: url('/images/ul.jpg') no-repeat center center fixed; 
-    		background-size: cover;
+            background-image: url('/images/col.jpg'); /* Immagine di sfondo */
+            background-size: cover; /* Adatta l'immagine a coprire tutto lo schermo */
+            background-position: center; /* Centra l'immagine di sfondo */
+            background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
             margin: 0;
             padding: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: left;
-            padding-left: 40px;
-        }
-
-        .content {
+            color: white; /* Colore del testo predefinito */
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            min-height: 100vh;
         }
 
+        /* Stile per il logo */
+        .logo {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .logo img {
+            max-width: 70%;
+            height: auto;
+        }
+
+        /* Stile per il titolo principale */
         h1 {
-            color: #333;
-        }
-
-        .chef-list {
-            list-style-type: none;
-            padding: 0;
-            width: 40%; /* Imposta la larghezza della lista */
-        }
-
-        .chef-list li {
-            background-color: #fff;
-            margin: 20px 0; /* Aumenta il margine */
-            padding: 20px; /* Aumenta il padding */
-            border-radius: 10px; /* Aumenta il raggio della bordatura */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Migliora l'ombra */
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Aggiungi transizione */
-        }
-
-        .chef-list li:hover {
-            transform: translateY(-10px); /* Effetto sollevamento al passaggio del mouse */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombra più grande al passaggio del mouse */
-        }
-
-        .chef-list a {
-            text-decoration: none;
-            color: #007BFF;
-            font-weight: bold;
-            font-size: 20px; /* Aumenta la dimensione del font */
-        }
-
-        .chef-list a:hover {
-            text-decoration: underline;
-        }
-
-        .no-chefs {
-            color: #ff0000;
-            font-size: 18px;
+            color: #ffeb3b; /* Colore giallo per il titolo */
+            font-size: 32px;
             margin-top: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Aggiunge un'ombra al testo */
+        }
+
+        /* Stile per il messaggio di assenza di giochi */
+        div[th\\:if="${giochi.isEmpty()}"] {
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo arancione semitrasparente */
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            color: #fff; /* Colore bianco per il testo */
+            font-weight: bold;
+        }
+
+        /* Stile per la lista di giochi */
+        ul {
+            list-style-type: none; /* Rimuove i punti elenco */
+            padding: 0;
+            margin-top: 20px;
+            width: 90%; /* Allarga la lista per centrare meglio il contenuto */
+        }
+
+        ul li {
+            background-color: rgba(0, 0, 0, 0.8); /* Sfondo blu semitrasparente per ogni elemento della lista */
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s ease;
+            text-align: center; /* Allinea il testo al centro */
+        }
+
+        ul li:hover {
+            background-color: rgba(25, 118, 210, 0.9); /* Sfondo blu più scuro al passaggio del mouse */
+        }
+
+        ul li a {
+            color: #ffeb3b; /* Colore giallo per il testo dei giochi */
+            text-decoration: none; /* Rimuove la sottolineatura dai link */
+            font-size: 22px; /* Aumenta la dimensione del testo */
+            font-weight: bold; /* Rende il testo più audace */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Aggiunge un'ombra leggera al testo */
+            display: block; /* Fa sì che il link occupi l'intera area del list item */
         }
     </style>
-</head>
-
 <body>
     <header>
         <div class="logo">
-            <a href="/success"><img src="/images/trr.png" width="15%"></a>
+            <a href="/success"><img src="/images/trr.png" width="40%"></a>
         </div>
     </header>
 
-    <div class="content">
+    <div>
         <h1>Utenti:</h1>
 
-        <div th:if="${utenti.isEmpty()}" class="no-chefs">Non ci sono utenti nel sistema</div>
+        <div th:if="${utenti.isEmpty()}" >Non ci sono utenti nel sistema</div>
 
-        <ul class="chef-list" th:if="${!utenti.isEmpty()}">
+        <ul th:if="${!utenti.isEmpty()}">
             <li th:each="Utente : ${utenti}">
                 <a th:href="@{'/Utente/' + ${Utente.id}}" th:text="${Utente.name}"></a>
             </li>

@@ -1,5 +1,6 @@
 package it.uniroma3.controller;
 
+import java.io.IOException;
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.service.UserService;
 
@@ -21,10 +24,12 @@ import it.uniroma3.controller.validator.UserValidator;
 import it.uniroma3.controller.validator.CredentialsValidator;
 import it.uniroma3.service.CredentialsService;
 import it.uniroma3.service.GiocoService;
+import it.uniroma3.service.ImageService;
 import it.uniroma3.service.RecensioneService;
 import it.uniroma3.controller.validator.*;
 import it.uniroma3.model.Credentials;
 import it.uniroma3.model.Gioco;
+import it.uniroma3.model.Image;
 import it.uniroma3.model.Recensione;
 import it.uniroma3.model.User;
 import jakarta.servlet.http.HttpSession;
@@ -45,6 +50,7 @@ public class AdminController {
 	private CredentialsValidator credentialsValidator;
 	@Autowired
 	private UserValidator userValidator;
+	@Autowired ImageService imageservice;
 	
 	@GetMapping(value = "/registerAdmin") 
 	public String showRegisterFormAdmin (Model model) {
@@ -89,7 +95,7 @@ public class AdminController {
 	
 	@PostMapping("/NewgiochiAdmin")
 	public String newGiocoAdmin(
-			@ModelAttribute("gioco")Gioco gioco, Model model) {
+			@ModelAttribute("gioco")Gioco gioco, Model model,@RequestParam("image") MultipartFile imageFile)throws IOException  {
 		
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
@@ -97,10 +103,14 @@ public class AdminController {
 	    gioco.setUserg(user);
 	    gioco.getUserg().setId(user.getId());
 		user.getGiochi().add(gioco);
+		Image ImmagineSalvata= imageservice.saveImage(imageFile);
+		ImmagineSalvata.setGioco(gioco);
+		gioco.setImmagine(ImmagineSalvata);
 		giocoService.save(gioco);
 		
 		model.addAttribute("giochi", this.giocoService.findAll());
-		return "giochi.html";
+//		return "giochi.html";
+		return "redirect:giochi";
 		//return "redirect:Ricetta/"+ricetta.getId();
 	}
 	
@@ -163,19 +173,15 @@ public class AdminController {
 	 @GetMapping("admin/CancellaGiochiAdmin/{id}")
 	    public String cancellaGioco(@ModelAttribute("gioco")Gioco gioco,
 	    	@PathVariable("id") Long id, Model model) {  
-//	    	Ricetta ricettas = ricettaService.findById(id);
-//	    	Ingrediente in = ingredienteService.findById(idIn);
-	    	Gioco g = giocoService.findById(id);
-	    	model.addAttribute("Gioco",g);
-		 	giocoService.deleteById(id);    	
-//	    	ricettas.getIngredienti().remove(in);   	
-//	    	return "redirect:/Ricette";
+		 	giocoService.deleteById(id); 
+		 	
 	    	return "redirect:/giochiAdmin";
 	    }   
     
     
     /*Form per aggiungere recensioni da Admin in qualsiasi gioco*/
 	 @GetMapping("admin/NewRecensioniAdmin/{id}")
+	 @Transactional
 	    public String addRecensioniAdmin(@ModelAttribute("gioco")Gioco gioco,@ModelAttribute("user") User user,
 	    		@PathVariable("id") Long id, Model model) {    	
 	    	    model.addAttribute("recensione", new Recensione());
@@ -186,6 +192,7 @@ public class AdminController {
 	    }
 	    
 	    @PostMapping("/recensioniNuoveAdmin")
+	    @Transactional
 		public String newRecensioniAdmin(@ModelAttribute("recensione")Recensione recensione,
 				@RequestParam("id")Long id, @RequestParam("rating") Integer rating, @RequestParam("data")Date data,
 				/*@ModelAttribute("gioco")Gioco gioco,*/ Model model) {
@@ -219,13 +226,14 @@ public class AdminController {
 			model.addAttribute("recensioni", this.recensioneService.FindRecensioniByUserId(user.getId()));
 
 //		    return "redirect:/gioco/" + gioco.getId()+"/recensioni";
-		    return "recensioni.html";
-			//return "redirect:Ricetta/"+ricetta.getId();
+//		    return "recensioni.html";
+			return "redirect:/gioco/"+giocos.getId()+"/recensioni";
 		}
 	    
 	    /*get alla pagina per cancellare*/
 	    @GetMapping("/RecensioniAdmin/{id}")
-		public String getRecensioniCuoco(@PathVariable("id")Long Id,Model model) {
+	    @Transactional
+		public String getRecensioniAdmin(@PathVariable("id")Long Id,Model model) {
 				model.addAttribute("Recensioni", recensioneService.FindRecensioniByGiocoId(Id));
 				model.addAttribute("Gioco", giocoService.findById(Id));
 				return "admin/cancellaRecensioni.html";
@@ -233,6 +241,7 @@ public class AdminController {
 	    
 	/*cancella recensioni dal sistema */
 	    @GetMapping("/admin/CancellaRecensioneAdmin/{id}/{giocoid}")
+	    @Transactional
 	    public String cancellaRecensioneAdmin(@ModelAttribute("gioco")Gioco gioco,
 	    					@PathVariable("giocoid")Long giocoid,
 	    		Model model,@PathVariable("id") Long id) {  
