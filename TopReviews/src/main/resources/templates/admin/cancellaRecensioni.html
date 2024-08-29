@@ -116,6 +116,7 @@
                     <span th:text="${Recensione.testo}">Testo</span>
                 </div>
                 <div class="actions">
+					
                     <a th:href="@{'/admin/CancellaRecensioneAdmin/' + ${Recensione.id} +'/'+ ${Gioco.id}}">Cancella recensione</a>
                 </div>
             </li>
