@@ -2,31 +2,121 @@
 <html>
 	
 <head>
-	
+	<meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>Recensioni</title>
+		<link rel="stylesheet" href="/stile.css?version=2">
 </head>
+
+			<style>
+				
+				.link-list {
+				    list-style-type: none; /* Rimuove i punti dell'elenco */
+				    padding: 0;
+				    margin: 0;
+				}
+
+				.link-list li {
+				    display: flex;            /* Posiziona il link e il bottone uno accanto all'altro */
+				    justify-content: flex-start; /* Allinea il contenuto a sinistra */
+				    align-items: center;      /* Centra verticalmente il link e il bottone */
+				    margin-bottom: 10px;      /* Spaziatura tra gli elementi dell'elenco */
+				
+				}
+
+				.link {
+					margin-right: 10px;       /* Spaziatura tra il link e il bottone */
+						    text-decoration: none;    /* Rimuove la sottolineatura dal link */
+						    color: #ffeb3b;           /* Mantiene il colore del link giallo */
+						}
+				
+				body {
+				
+				           font-family: Arial, sans-serif;
+				           background: url('/images/col.jpg') no-repeat center center fixed;
+				           background-size: cover;
+				           margin: 0;
+				           padding: 0;
+				           color: #ffeb3b; /* Colore del testo giallo */
+				           display: flex;
+				           flex-direction: column;
+				           align-items: center;
+					
+						   
+				       }
+
+				       /* Stile per l'header */
+				       header {
+				           background-color: #333;
+				           color: #ffeb3b; /* Colore del testo giallo */
+				           padding: 10px 0;
+				           width: 100%;
+				           display: flex;
+				           justify-content: center;
+				           align-items: center;
+				       }
+
+				       .logo img {
+				           max-width: 15%;
+				           height: auto;
+				       }
+
+				       /* Stile per il titolo */
+				       h1 {
+				           color: #ffeb3b; /* Colore del testo giallo */
+				           font-size: 36px;
+				           margin: 20px 0;
+				           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombra al testo */
+				       }
+					   li{
+						background-color: rgba(0, 0, 0, 0.8); /* Colore del bottone */
+						    color: yellow; /* Colore del testo */
+						    padding: 15px 25px; /* Spaziatura interna del bottone */
+						    margin: 10px 0; /* Margine intorno ai bottoni */
+						    border-radius: 5px; /* Arrotonda gli angoli */
+						    font-size: 18px;
+						    transition: background-color 0.3s; /* Transizione per hover */
+					   }
+					   
+					   button {
+						background-color:rgb(140, 0, 0);
+						color: #ffeb3b;
+						border-radius: 5px;
+						border: none;
+						padding: 10px;
+					   }
+					   .button:hover{
+						background-color:rgb(255, 0, 0);
+						transition: 0.7s;
+					   }
+					   
+					 
+			
+				
+			</style>
+			 
+	
+	
+	   
 
 
 	<body >
-			<div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
-			
+		<header>
+		        <div class="logo">
+		            <a href="/"><img src="/images/trr.png" alt="Logo"></a>
+		        </div>
+		    </header>
 			<div th:if="${recensioni.isEmpty()}">Non ci sono recensioni nel sistema</div>
-			<ul th:each="recensione : ${recensioni}">
-	         <a th:href="@{'/recensione/' + ${recensione.id}}" th:text="${recensione.titolo}">recensione</a>
-				<form th:action="@{'/User/CancellaRecensione/' + ${recensione.id}}" method="get">
-				    <button type="submit";style=align:right>Cancella</button>
-				</form>
-				
-			
-				
-			<!--
-			 <a th:href="@{'/User/CancellaRecensione/' + ${recensione.id}}" th:text="${recensione.titolo}">recensione</a>
-					 </a>
-					 -->
-					 
+			<div class="container">
+				<ul th:each="recensione : ${recensioni}" class="link-list">
+					<div class="actions">
+						<li>
+						<a th:href="@{'/recensione/' + ${recensione.id}}" th:text="${recensione.titolo}" class="link" >recensione</a>
+						<form th:action="@{'/User/CancellaRecensione/' + ${recensione.id}}" method="get">
+						<button  type="submit" class="button">Cancella</button>
+						</form>			
+						</li>
+			        </div>
 			 </ul>
 		</body>
-	
-	
-
-
 </html>

@@ -144,7 +144,6 @@ public class GiocoController {
 		User user = credentials.getUser();
 		gioco.setUserg(user);
 		Image ImmagineSalvata= imageservice.saveImage(imageFile);
-		//ImmagineSalvata.setGioco(gioco);
 		gioco.setImmagine(ImmagineSalvata);
 		this.giocoService.save(gioco);
 		model.addAttribute("giochi", this.giocoService.findAll());
