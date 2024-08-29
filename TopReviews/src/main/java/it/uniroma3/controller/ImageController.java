@@ -41,6 +41,7 @@ public class ImageController {
     	System.out.println("L'id del gioco ?: "+id );
 //    	imageService.getImage(id);
         Optional<Image> imageData = imageService.getImageByGiocoid(id);
+//    	Optional<Image> imageData = imageService.getImageByid(id);
         if (imageData.isPresent()) {
             Image image = imageData.get();
             HttpHeaders headers = new HttpHeaders();

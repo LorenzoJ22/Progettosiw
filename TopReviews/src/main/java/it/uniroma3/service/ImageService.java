@@ -30,8 +30,16 @@ public class ImageService {
         return imageRepository.findById(id);
     }
     
+//    public Optional<Image> getImageByGiocoid(Long id){
+//    	return imageRepository.findImageByGiocoid(id);
+//    	
+//    }
     public Optional<Image> getImageByGiocoid(Long id){
     	return imageRepository.findImageByGiocoid(id);
+    	
+    }
+    public Optional<Image> getImageByid(Long id){
+    	return imageRepository.findImageByid(id);
     	
     }
 }
