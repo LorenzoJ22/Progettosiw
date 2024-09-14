@@ -47,8 +47,8 @@ public class CredentialsService {
         
 	}
 	
-	public Boolean existsByUsernameAndPassword(String username, String password) {
-		return credentialsRepository.existsByUsernameAndPassword(username,  password);
+	public Boolean existsByUsername(String username) {
+		return credentialsRepository.existsByUsername(username);
 	}
 	
 	

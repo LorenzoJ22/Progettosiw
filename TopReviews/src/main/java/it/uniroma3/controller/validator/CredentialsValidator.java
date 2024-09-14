@@ -18,7 +18,7 @@ public class CredentialsValidator implements Validator{
 	@Override
 	public void validate(Object o, Errors errors) {
 		Credentials p = (Credentials)o;
-		if (this.credentialservice.existsByUsernameAndPassword(p.getUsername(),p.getPassword())) {
+		if (this.credentialservice.existsByUsername(p.getUsername())) {
 			errors.reject("credentials.duplicate");
 		}
 	}

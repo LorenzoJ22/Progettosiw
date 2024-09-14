@@ -73,7 +73,7 @@ public class AdminController {
 		this.userValidator.validate(user, userBindingResult);
 		
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
-        if(!credentialsBindingResult.hasErrors() && !userBindingResult.hasErrors()) {
+        if(!credentialsBindingResult.hasErrors() ) {
         	userService.saveUser(user);
         	credentials.setUser(user);
         	credentialsService.saveCredentialsAdmin(credentials);
