@@ -18,13 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.controller.validator.CredentialsValidator;
+import it.uniroma3.controller.validator.UserValidator;
 import it.uniroma3.model.Credentials;
 import it.uniroma3.model.Image;
 import it.uniroma3.model.User;
 import it.uniroma3.service.CredentialsService;
 import it.uniroma3.service.ImageService;
 import it.uniroma3.service.UserService;
-//import jakarta.validation.Valid;
+
 
 @Controller
 public class AuthenticationController {
@@ -34,7 +36,10 @@ public class AuthenticationController {
 
     @Autowired
 	private UserService userService;
-    
+    @Autowired 
+	private CredentialsValidator credentialsValidator;
+	@Autowired
+	private UserValidator userValidator;
 	
     @GetMapping("/SceltaRegistrazione")
 	public String sceltaRegistrazione(Model model) {
@@ -101,11 +106,15 @@ public class AuthenticationController {
     }
 
 	@PostMapping(value = { "/register" })
-    public String registerUser(/*@Valid*/ @ModelAttribute("user") User user,
+    public String registerUser(@ModelAttribute("user") User user,
                  BindingResult userBindingResult, /*@Valid*/
                  @ModelAttribute("credentials") Credentials credentials,
                  BindingResult credentialsBindingResult,
                  Model model){
+		
+		this.credentialsValidator.validate(credentials, credentialsBindingResult);
+		
+		this.userValidator.validate(user, userBindingResult);
 		
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {

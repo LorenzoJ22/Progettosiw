@@ -24,6 +24,8 @@ public class UserController {
 		 model.addAttribute("utenti", this.userService.findAll());
 		 return "utenti.html";
 	 }
+	 
+	 
 }
 
 

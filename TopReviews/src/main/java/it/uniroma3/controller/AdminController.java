@@ -29,6 +29,7 @@ import it.uniroma3.service.RecensioneService;
 import it.uniroma3.controller.validator.*;
 import it.uniroma3.model.Credentials;
 import it.uniroma3.model.Gioco;
+
 import it.uniroma3.model.Image;
 import it.uniroma3.model.Recensione;
 import it.uniroma3.model.User;
@@ -200,7 +201,7 @@ public class AdminController {
 				/*@ModelAttribute("gioco")Gioco gioco,*/ Model model) {
 	    	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());	    	
-	    	Gioco giocos = giocoService.findById(id);
+			Gioco giocos = giocoService.findById(id);
 			User user = credentials.getUser();
 			
 //			Gioco giocos= (Gioco)session.getAttribute("giocoMem");

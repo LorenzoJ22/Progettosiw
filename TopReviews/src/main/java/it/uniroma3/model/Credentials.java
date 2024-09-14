@@ -19,10 +19,20 @@ public class Credentials {
 	private String username;
 	private String password;
 	private String role;
+
+	public String getRole() {
+		return role;
+	}
+	
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
+	
 	
 	public String getUsername() {
 		return username;
@@ -56,12 +66,4 @@ public class Credentials {
 		this.password = password;
 	}
 	
-	public String getRole() {
-		return role;
-	}
-	
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 }
