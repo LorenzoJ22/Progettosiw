@@ -25,6 +25,7 @@
 
         /* Stile per il contenitore del logo */
         .logo {
+			
             margin-top: 20px;
             text-align: center;
         }
@@ -48,63 +49,48 @@
             max-width: 400px;
         }
 
-        /* Stile per le etichette dei campi del modulo */
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: yellow;
-            font-weight: bold;
-        }
-
-        /* Stile per i campi di input del modulo */
-        input[type="text"],
-        input[type="number"],
-        input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
-
-        /* Stile per il messaggio di errore */
-        .error-message {
-            background-color: #ffdddd;
-            color: #d8000c;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #d8000c;
-            border-radius: 5px;
-        }
-
-        /* Stile per il pulsante di submit */
-        button[type="submit"] {
-            background-color: yellow;
-            color: black;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-
-        button[type="submit"]:hover {
-            background-color: red;
-        }
-
+       
         /* Stile per il logo */
         .logo img {
             max-width: 100%;
             height: auto;
         }
+		img {
+		  width: 300; /* imposta la larghezza */
+		  max-width: 50%;
+		  height: auto; /* mantiene le proporzioni */
+		  border-radius: 10px;
+		}
+		a{
+	     text-decoration: none;
+		 color: yellow;
+	     font-size: 20px;
+	     margin-top: 5px;
+		 margin-bottom: 5px;
+		 border-radius: 5px; 
+		 margin-top: 5px;
+		 border-style: solid;
+		 border-color: yellow;
+		 padding: 5px;
+		
+		}
+		a:hover {
+		        background-color:  yellow; /* Sfondo rosso al passaggio del mouse */
+		        color:black;
+		 }
+		 .logo a{
+			border-style: none;
+			
+		 }
+		 .logo a:hover{
+			background: none;
+		 }
+		
+		
     </style>
   <body>
     <div class="logo">
-            <a href="/success"><img src="/images/trr.png" width="30%"></a>
+            <a class="logo" href="/success"><img src="/images/trr.png" width="30%"></a>
         </div>
    
     <div th:if="${gioco}">
@@ -115,11 +101,14 @@
 
     <div th:unless="${gioco}">Non esiste</div>
 	<img th:src="@{'/image/' + ${gioco.id}}" alt="Immagine"></img>
-    
-    <a th:href="@{'/gioco/' + ${gioco.id} + '/recensioni'}">recensioni</a>
-	<a th:if="${#authentication.name != 'anonymousUser'}"></a>
-	<a th:href="@{'/aggiungiRecensione'}">  Aggiungi Recensione</a>
 	
+   
+    <a th:href="@{'/gioco/' + ${gioco.id} + '/recensioni'}">recensioni</a>
+	
+	
+
+	<a th:href="@{'/aggiungiRecensione'}">  Aggiungi Recensione</a>
+
 	
  </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+
 import it.uniroma3.model.Gioco;
 import it.uniroma3.model.Image;
 import it.uniroma3.model.Recensione;
@@ -25,8 +26,6 @@ public interface GiocoRepository extends CrudRepository<Gioco, Long> {
 		public Iterable<Gioco> findByTitle(String title);
 		
 		public List<Gioco> findByTitleIgnoreCase(String title);
-		
-
 		
 		
 }

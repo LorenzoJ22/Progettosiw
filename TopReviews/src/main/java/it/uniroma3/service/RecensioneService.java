@@ -3,7 +3,7 @@ package it.uniroma3.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.uniroma3.model.Gioco;
+
 import it.uniroma3.model.Recensione;
 import java.util.*;
 import it.uniroma3.repository.RecensioneRepository;

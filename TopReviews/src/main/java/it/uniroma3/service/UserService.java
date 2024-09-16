@@ -6,7 +6,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.uniroma3.model.Gioco;
 import it.uniroma3.model.User;
 import it.uniroma3.repository.UserRepository;
 
