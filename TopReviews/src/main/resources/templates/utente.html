@@ -129,7 +129,10 @@
     </header>
 
     <div class="content">
-        <h1 th:text="${Utente.name} + ' ' + ${Utente.surname}"></h1>
+        <h1 th:text="'Nome e cognome Utente: ' + ${Utente.name} + ' ' + ${Utente.surname}"></h1>
+    </div>
+    <div class="content">
+        <h1 th:text="'Email utente: ' + ${Utente.email}" ></h1> 
     </div>
 	
     

@@ -120,8 +120,7 @@
 		<div>
 			<label>Email</label>
 			<span><input type="text" placeholder="email" required th:field="${user.email}" /></span>
-			<span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'">
-			</span>
+			
 		</div>
 		<div>
 			<label>Username</label>
@@ -135,9 +134,6 @@
 		<div>
 			<label>Password</label>
 			<span><input type="password" placeholder="password" required th:field="${credentials.password}" />
-			</span>
-			<span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
-				th:style="'color:red'">
 			</span>
 		</div>
 		

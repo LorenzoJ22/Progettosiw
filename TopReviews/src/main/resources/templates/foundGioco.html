@@ -118,6 +118,24 @@
             background-color: #c62828; /* Sfondo rosso più scuro al passaggio del mouse */
         }
         
+        .button {
+    background-color: #ffeb3b; /* Colore giallo per il pulsante */
+    color: #000;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Per i link */
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #fdd835; /* Giallo più scuro al passaggio del mouse */
+}
+        
+        
+        
     </style>
 </head>
 
@@ -142,9 +160,9 @@
     <ul th:if="${!giochi.isEmpty()}">
         <li th:each="Gioco : ${giochi}">
             <div class="recipe-item">
-                <a th:href="@{'/gioco/' + ${Gioco.id}}"  th:text="${Gioco.title}"></a>
+                <a th:href="@{'/gioco/' + ${Gioco.id}}"  th:text="${Gioco.title}" class="button"></a>
                 <span>Nome User: </span>
-                <a th:href="@{'/Utente/' + ${Gioco.userg.id}}"  th:text="${Gioco.userg.name}"></a>
+                <a th:href="@{'/Utente/' + ${Gioco.userg.id}}"  th:text="${Gioco.userg.name}" class="button"></a>
                 
             </div>
         </li>

@@ -18,10 +18,6 @@ public class UserValidator implements Validator{
 	@Autowired
 	private UserRepository userRepository;
 
-	@Override
-	public boolean supports(Class<?> clazz) {
-		return User.class.equals(clazz);
-	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
@@ -31,6 +27,10 @@ public class UserValidator implements Validator{
 			errors.reject("user.duplicate");
 		}
 		
+	}
+	@Override
+	public boolean supports(Class<?> clazz) {
+		return User.class.equals(clazz);
 	}
 
 }
